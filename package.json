@@ -1,0 +1,22 @@
+{
+  "name": "safari",
+  "version": "1.0.0",
+  "description": "",
+  "main": "shot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/nunito-sans": "^5.3.0",
+    "@fontsource/oswald": "^5.3.0",
+    "@fontsource/special-elite": "^5.3.0",
+    "@geo-maps/countries-coastline-2km5": "^0.6.0",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

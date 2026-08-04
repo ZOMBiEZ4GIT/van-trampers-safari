@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+assets_tmp/
+
+# test/build intermediates (regenerable)
+test_local.html
+fridge.html
+fridge_preview.png
+shot_*.png
+tour_*.png
+header_check.png

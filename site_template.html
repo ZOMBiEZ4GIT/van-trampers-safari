@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Van Trampers — South Island Safari 2027</title>
+<meta name="description" content="The Van Trampers' South Island Safari, 1 Feb – 14 Mar 2027: 15 hubs, 41 nights. Explore the route map, play the animated safari tour, and print the A4 fridge map.">
+<link rel="icon" type="image/png" href="data:image/png;base64,__FAVICON__">
+<link rel="apple-touch-icon" href="data:image/png;base64,__APPLETOUCH__">
+<meta name="theme-color" content="#1e3a5f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Van Trampers">
+<meta property="og:title" content="South Island Safari 2027 — Van Trampers">
+<meta property="og:description" content="1 Feb – 14 Mar 2027 · 15 hubs · 41 nights. Tap to explore the route, play the animated safari tour, and print the fridge map.">
+<meta property="og:url" content="https://zombiez4git.github.io/van-trampers-safari/">
+<meta property="og:image" content="https://zombiez4git.github.io/van-trampers-safari/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vintage-style route map of the South Island Safari with numbered hub pins">
+<meta property="og:locale" content="en_NZ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Special+Elite&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parch:#f2e9d4; --parch2:#e9dec2; --ink:#3d3020; --navy:#1e3a5f;
+    --red:#a93a2c; --green:#3e6b4f; --ochre:#b07c2a; --cream:#faf5e8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Nunito Sans', 'Segoe UI', sans-serif; color:var(--ink);
+    background:var(--parch);
+    background-image:radial-gradient(ellipse at 30% 20%, rgba(255,252,240,.55), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(160,120,60,.14), transparent 55%);
+  }
+  .frame{max-width:1280px; margin:0 auto; padding:14px; }
+  .board{
+    background:var(--cream);
+    border:3px solid var(--navy); border-radius:10px;
+    box-shadow:0 3px 0 var(--navy), 0 14px 34px rgba(61,48,32,.25);
+    overflow:hidden;
+  }
+  /* ---------- header ---------- */
+  header{
+    display:flex; align-items:center; gap:18px; padding:16px 22px 12px;
+    background:linear-gradient(180deg, #f7f0dd, #f0e6cc);
+    border-bottom:3px double var(--navy);
+  }
+  header img.logo{width:96px; height:auto; flex:0 0 auto; filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));}
+  .title-block{flex:1; text-align:center;}
+  .kicker{font-family:'Special Elite', cursive; font-size:15px; letter-spacing:2px; color:var(--green); text-transform:uppercase;}
+  h1{
+    font-family:'Oswald', 'Arial Narrow', sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:clamp(28px, 5vw, 52px); line-height:1.02; color:var(--navy); letter-spacing:1px;
+  }
+  h1 .safari{color:var(--red);}
+  .ribbon{
+    display:inline-block; margin-top:8px; padding:5px 22px; background:var(--red); color:#fdf6e6;
+    font-family:'Oswald', sans-serif; font-weight:600; letter-spacing:2px; font-size:clamp(13px,2vw,17px);
+    clip-path:polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+    text-transform:uppercase;
+  }
+  .countdown{font-family:'Special Elite',cursive; font-size:.85rem; color:var(--green); margin-top:7px; letter-spacing:1px;}
+  .head-spacer{width:96px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;}
+  .van-emoji{font-size:44px; filter:sepia(.3);}
+  /* ---------- layout ---------- */
+  .main{display:grid; grid-template-columns:1fr 340px; gap:0;}
+  .map-wrap{position:relative; border-right:3px solid var(--navy); display:flex; min-height:72vh;}
+  #map{flex:1; min-height:460px; z-index:1;}
+  .compass{
+    position:absolute; top:12px; right:12px; z-index:500; width:46px; height:46px; border-radius:50%;
+    background:rgba(250,245,232,.92); border:2px solid var(--navy); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; font-family:'Oswald',sans-serif; color:var(--navy);
+    box-shadow:0 2px 6px rgba(0,0,0,.25); pointer-events:none;
+  }
+  .compass .arrow{font-size:16px; line-height:1; color:var(--red);}
+  .compass .n{font-size:13px; font-weight:700; line-height:1;}
+  /* ---------- tour controls & animation ---------- */
+  .tourbar{
+    position:absolute; top:12px; left:56px; z-index:600; display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  }
+  .tbtn{
+    font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+    font-size:.85rem; color:#fdf6e6; background:var(--red); border:2px solid #7d2a1f; border-radius:8px;
+    padding:6px 14px; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,.3);
+  }
+  .tbtn:hover{filter:brightness(1.08);}
+  .tbtn.ghost{background:var(--navy); border-color:#12253d;}
+  .tbtn:focus-visible, .row:focus-visible, .pdflink:focus-visible, a:focus-visible{
+    outline:3px solid var(--ochre); outline-offset:2px;
+  }
+  .ticker{
+    font-family:'Special Elite',cursive; font-size:.85rem; color:var(--ink);
+    background:rgba(250,245,232,.94); border:1.5px solid var(--ochre); border-radius:8px;
+    padding:5px 12px; box-shadow:0 2px 5px rgba(0,0,0,.2); max-width:300px;
+  }
+  .ticker b{color:var(--red);}
+  .vanicon{font-size:28px; line-height:1; filter:drop-shadow(0 2px 2px rgba(0,0,0,.4)); transform:translate(-2px,-6px);}
+  @keyframes pindrop{from{transform:translateY(-16px) scale(.3); opacity:0} 60%{transform:translateY(2px) scale(1.05); opacity:1} to{transform:translateY(0) scale(1);}}
+  .pin{animation:pindrop .55s ease-out backwards; animation-delay:var(--d,0s);}
+  @keyframes ants{to{stroke-dashoffset:-26;}}
+  .route-dash{animation:ants 1.6s linear infinite;}
+  @media (prefers-reduced-motion: reduce){
+    .pin{animation:none;} .route-dash{animation:none;}
+  }
+  .map-note{
+    position:absolute; left:10px; bottom:26px; z-index:500;
+    font-family:'Special Elite', cursive; font-size:12px; color:var(--ink);
+    background:rgba(250,245,232,.9); border:1.5px solid var(--ochre); border-radius:6px;
+    padding:4px 10px; max-width:260px; transform:rotate(-1.2deg);
+  }
+  /* vintage tint on tiles */
+  .leaflet-tile{filter:sepia(.28) saturate(.85) contrast(.98) brightness(1.02);}
+  .leaflet-container{background:#dfe9dd; font:inherit;}
+  .leaflet-control-attribution{font-size:10.5px !important; background:rgba(250,245,232,.85) !important; color:#6e5a3c !important; max-width:75vw;}
+  .leaflet-popup-close-button{font-size:22px !important; width:28px !important; height:28px !important; line-height:26px !important;}
+  /* ---------- sidebar ---------- */
+  aside{background:var(--cream); display:flex; flex-direction:column;}
+  aside h2{
+    font-family:'Oswald', sans-serif; text-transform:uppercase; letter-spacing:2px;
+    color:var(--cream); background:var(--navy); padding:10px 16px; font-size:18px; font-weight:600;
+  }
+  .itin{overflow-y:auto; flex:1;}
+  .row{
+    display:flex; align-items:center; gap:10px; padding:8px 12px; cursor:pointer;
+    width:100%; text-align:left; background:none; border:0; font:inherit; color:inherit;
+    border-bottom:1px dashed #cbb98e; transition:background .15s;
+  }
+  .row:hover, .row.active{background:#f3e9cf;}
+  .badge{
+    flex:0 0 26px; width:26px; height:26px; border-radius:50%; background:var(--red); color:#fff;
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; display:flex; align-items:center; justify-content:center;
+    border:2px solid #7d2a1f; box-shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+  .row.finish .badge{background:var(--green); border-color:#2c4d39;}
+  .row .who{flex:1; min-width:0; display:block;}
+  .row .nm, .row .dt{display:block;}
+  .row .nm{font-weight:700; font-size:.9rem; color:var(--navy);}
+  .row .nm .tag{font-family:'Special Elite',cursive; color:var(--red); font-size:.7rem; margin-left:4px; white-space:nowrap;}
+  .row .dt{font-size:.8rem; color:#5f4e34;}
+  .row .dt b{color:var(--red); font-weight:700;}
+  .row .ico{font-size:.85rem; letter-spacing:1px; flex:0 0 auto;}
+  .nights-pill{
+    flex:0 0 auto; font-family:'Oswald',sans-serif; font-size:.72rem; font-weight:600; color:var(--navy);
+    border:1.5px solid var(--navy); border-radius:10px; padding:1px 7px; background:#fff8; white-space:nowrap;
+  }
+  /* ---------- popups ---------- */
+  .leaflet-popup-content-wrapper{
+    background:var(--cream); color:var(--ink); border:2px solid var(--navy); border-radius:8px;
+    box-shadow:0 6px 18px rgba(0,0,0,.3); font-family:'Nunito Sans',sans-serif;
+  }
+  .leaflet-popup-tip{background:var(--navy);}
+  .pp{min-width:210px; max-width:250px;}
+  .pp h3{font-family:'Oswald',sans-serif; text-transform:uppercase; color:var(--navy); font-size:17px; letter-spacing:.5px; margin-bottom:2px;}
+  .pp h3 .tag{color:var(--red); font-family:'Special Elite',cursive; font-size:12px; text-transform:none;}
+  .pp .dates{font-family:'Special Elite',cursive; color:var(--red); font-size:14px; margin-bottom:4px;}
+  .pp .blurb{font-size:12.5px; font-style:italic; color:#5d4c31; margin-bottom:6px; line-height:1.35;}
+  .pp .chips{display:flex; flex-wrap:wrap; gap:4px;}
+  .chip{font-size:11px; border:1.2px solid var(--ochre); background:#f6edd6; border-radius:9px; padding:2px 7px; color:var(--ink);}
+  .pp .refs{margin-top:6px; font-size:11.5px; color:#6e5a3c;}
+  .pp .stint{border-top:1px dashed #cbb98e; padding-top:5px; margin-top:5px;}
+  /* markers */
+  .pin{
+    width:30px; height:30px; border-radius:50%; background:var(--red); border:2.5px solid #fdf6e6;
+    outline:2px solid var(--red);
+    color:#fff; font-family:'Oswald',sans-serif; font-weight:600; font-size:13.5px;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,.45);
+  }
+  .pin.start{background:var(--green); outline-color:var(--green);}
+  .pin.finish{background:var(--green); outline-color:var(--green);}
+  .pin.multi{width:40px; border-radius:16px;}
+  /* ---------- lower panels ---------- */
+  .lower{display:grid; grid-template-columns:1.4fr 1fr; gap:0; border-top:3px double var(--navy);}
+  .panel{padding:18px 24px;}
+  .panel + .panel{border-left:3px double var(--navy);}
+  .panel h2{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; color:var(--red); letter-spacing:2px;
+    font-size:19px; margin-bottom:10px; border-bottom:2px solid var(--ochre); display:inline-block; padding-bottom:2px;
+  }
+  .panel ul{list-style:none;}
+  .panel li{
+    padding:4px 0 4px 26px; position:relative; font-size:.9rem; line-height:1.45;
+  }
+  .panel li::before{content:"✦"; position:absolute; left:4px; color:var(--ochre);}
+  .legend-grid{display:grid; grid-template-columns:1fr; gap:8px;}
+  .leg{display:flex; gap:10px; align-items:center; font-size:.9rem;}
+  .leg .sym{font-size:20px; width:32px; text-align:center; filter:sepia(.2);}
+  .coming{margin-top:14px; font-family:'Special Elite',cursive; font-size:.85rem; color:var(--green); line-height:1.5;}
+  footer{
+    text-align:center; padding:10px 16px 14px; border-top:3px double var(--navy);
+    font-family:'Special Elite',cursive; font-size:.85rem; color:var(--ink); background:var(--parch2);
+  }
+  footer .big{color:var(--red); font-size:15px;}
+  .pdflink{color:var(--navy); font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase;
+    text-decoration:none; border:1.5px solid var(--navy); border-radius:8px; padding:3px 12px; display:inline-block; margin-top:6px; background:#fff6;}
+  .pdflink:hover{background:var(--navy); color:#fdf6e6;}
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px){
+    .main{grid-template-columns:1fr;}
+    .map-wrap{border-right:none; border-bottom:3px solid var(--navy); min-height:0; flex-direction:column;}
+    #map{height:58vh; min-height:400px; flex:none; width:100%; order:0;}
+    /* tour controls become a full-width strip below the map — nothing overlays the pins */
+    .tourbar{position:static; order:1; padding:10px 12px; background:var(--parch2); border-top:2px solid var(--navy); justify-content:center;}
+    .tbtn{font-size:1rem; padding:10px 18px;}
+    .ticker{flex:1 1 100%; max-width:none; font-size:.95rem; text-align:center;}
+    .map-note{position:static; order:2; transform:none; max-width:none; margin:0; border:none; border-top:1.5px dashed var(--ochre); border-radius:0; background:var(--parch2); text-align:center; padding:5px 10px 8px; font-size:.75rem;}
+    aside{max-height:none;}
+    .itin{max-height:min(48vh, 420px);}
+    .lower{grid-template-columns:1fr;}
+    .panel + .panel{border-left:none; border-top:3px double var(--navy);}
+    header{gap:10px; padding:12px 14px 10px;}
+    header img.logo{width:64px;}
+    .head-spacer{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="board">
+    <header>
+      <img class="logo" src="data:image/png;base64,__LOGO__" alt="Van Trampers — Upper North Island">
+      <div class="title-block">
+        <div class="kicker">The Van Trampers Present</div>
+        <h1>South Island <span class="safari">Safari</span></h1>
+        <div class="ribbon">1 Feb – 14 Mar 2027 &nbsp;•&nbsp; 15 Hubs &nbsp;•&nbsp; 41 Nights</div>
+        <div class="countdown" id="countdown"></div>
+      </div>
+      <div class="head-spacer"><span class="van-emoji" aria-hidden="true">🚐</span></div>
+    </header>
+
+    <div class="main">
+      <div class="map-wrap">
+        <div id="map" role="region" aria-label="Interactive route map of the South Island Safari"></div>
+        <div class="compass" aria-hidden="true"><span class="arrow">▲</span><span class="n">N</span></div>
+        <div class="tourbar">
+          <button class="tbtn" id="playBtn">▶ Play the Safari</button>
+          <button class="tbtn ghost" id="speedBtn" style="display:none">1×</button>
+          <button class="tbtn ghost" id="resetBtn" style="display:none">↺</button>
+          <div class="ticker" id="ticker" style="display:none"></div>
+        </div>
+        <div class="map-note">Route is approximate — stops &amp; order may change with weather, whim and Happy Hour votes.</div>
+      </div>
+      <aside>
+        <h2>The Itinerary</h2>
+        <div class="itin" id="itin" aria-label="Itinerary — one entry per hub"></div>
+      </aside>
+    </div>
+
+    <div class="lower">
+      <div class="panel">
+        <h2>How We Roll</h2>
+        <ul>
+          <li><b>Everything is optional</b> — your safari, your choice. Pick what suits your interests, fitness and energy.</li>
+          <li><b>Hub-based travel</b> — each stop offers a menu of day walks, bike rides, kayaking and overnight tramps.</li>
+          <li><b>Happy Hour HQ</b> — each evening we plan the next day's options and split into groups.</li>
+          <li><b>Weather rules</b> — plans may change at short notice; we go with the flow.</li>
+          <li><b>Share the load</b> — taxi-van contribution $4 per person per leg (TBC).</li>
+          <li><b>Stay connected</b> — logistics, hut bookings and shuttles organised via the WhatsApp group.</li>
+        </ul>
+        <div class="coming">Coming soon: the Safari Handbook, hub-by-hub walk guides, DOC brochures &amp; GPX files on the shared drive.</div>
+      </div>
+      <div class="panel">
+        <h2>Icon Guide</h2>
+        <div class="legend-grid">
+          <div class="leg"><span class="sym">🥾</span> Day walks</div>
+          <div class="leg"><span class="sym">⛺</span> Overnight / multi-day tramp options</div>
+          <div class="leg"><span class="sym">🏛️</span> Heritage &amp; history</div>
+          <div class="leg"><span class="sym">🟢</span> Start &amp; finish hubs</div>
+        </div>
+        <div class="coming">Tap a number on the map — or a row in the itinerary — for dates, nights and notes for that hub.</div>
+      </div>
+    </div>
+
+    <footer>
+      <span class="big">Good company · shared adventure · freedom to roam</span><br>
+      It's your trip! &nbsp;🥾🚐⛰️<br>
+      <a class="pdflink" href="South_Island_Safari_Fridge_Map.pdf" download>⬇&nbsp; Print the fridge map (PDF)</a>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+__STOPS__
+const NZ_POLYS = __NZ__;
+
+const ACT_LABEL = {day:"🥾 Day walks", tramp:"⛺ Overnight tramp", heritage:"🏛️ Heritage / history"};
+const ACT_ICON  = {day:"🥾", tramp:"⛺", heritage:"🏛️"};
+
+const map = L.map('map', {scrollWheelZoom:true, zoomSnap:.5});
+const FIT_BOUNDS = L.latLngBounds([[-44.35,170.75],[-41.5,172.45]]);
+map.fitBounds(FIT_BOUNDS, {padding:[12,12]});
+
+// countdown to departure (device local time — the whole crew is in NZ)
+(function(){
+  const el = document.getElementById('countdown');
+  const depart = new Date(2027,1,1), home = new Date(2027,2,15);
+  const now = new Date();
+  const sleeps = Math.ceil((depart - now)/864e5);
+  if(sleeps > 1) el.textContent = '🚐 ' + sleeps.toLocaleString() + ' sleeps until departure!';
+  else if(sleeps === 1) el.textContent = '🚐 One more sleep — pack the van!';
+  else if(now < home) el.textContent = '🚐 The Safari is rolling right now!';
+  else el.textContent = '🥂 That was the Safari — what a trip!';
+})();
+
+// Vector coastline underlay — shows instantly (and if tiles can't load, the map still works)
+map.createPane('coast'); map.getPane('coast').style.zIndex = 150; // below tilePane (200)
+NZ_POLYS.forEach(poly=>{
+  const latlngs = poly.map(ring=>ring.map(([lon,lat])=>[lat,lon]));
+  L.polygon(latlngs, {pane:'coast', color:'#8a7452', weight:1, fillColor:'#ece1c2', fillOpacity:1, interactive:false}).addTo(map);
+});
+
+const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 15, attribution: 'Map © Esri'
+});
+esri.on('tileerror', function once(){ esri.off('tileerror', once);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:17, attribution:'© OpenStreetMap'}).addTo(map);
+});
+esri.addTo(map);
+
+// route: white casing under dashed red (dashes drift slowly — the trip is always in motion)
+L.polyline(ROUTE, {color:'#fdf6e6', weight:7, opacity:.85}).addTo(map);
+L.polyline(ROUTE, {color:'#a93a2c', weight:3.5, dashArray:'7 6', opacity:.95, className:'route-dash'}).addTo(map);
+
+function chips(acts){ return '<div class="chips">' + acts.map(a=>'<span class="chip">'+ACT_LABEL[a]+'</span>').join('') + '</div>'; }
+
+function popupSingle(s){
+  const tag = s.tag ? ' <span class="tag">('+s.tag+')</span>' : '';
+  return '<div class="pp"><h3>'+s.n+'. '+s.name+tag+'</h3>'
+    + '<div class="dates">'+s.dates+' · '+s.nights+' night'+(s.nights>1?'s':'')+'</div>'
+    + '<div class="blurb">'+s.blurb+'</div>' + chips(s.acts)
+    + '<div class="refs">Walk refs: '+s.refs+'</div></div>';
+}
+
+// Arthur's Pass 7–9 share one pin
+const apStops = STOPS.filter(s=>s.n>=7 && s.n<=9);
+function popupAP(){
+  let h = '<div class="pp"><h3>7–9. Arthur\'s Pass</h3>'
+    + '<div class="dates">Feb 15–20 · 6 nights, 3 stints</div>'
+    + '<div class="blurb">'+apStops[0].blurb+'</div>';
+  apStops.forEach(s=>{
+    h += '<div class="stint"><b>'+s.n+'. '+s.name+'</b> — '+s.dates+' ('+s.nights+' nights)<br>'
+      + s.acts.map(a=>ACT_ICON[a]).join(' ') + ' <span class="refs" style="margin-top:0">refs '+s.refs+'</span></div>';
+  });
+  return h + '</div>';
+}
+
+const markers = {};
+function addPin(lat,lng,label,cls,html,delay){
+  const w = cls.includes('multi') ? 40 : 30;
+  const m = L.marker([lat,lng], {icon: L.divIcon({className:'', html:'<div class="pin '+cls+'" style="--d:'+delay+'s">'+label+'</div>', iconSize:[w,30], iconAnchor:[w/2,15], popupAnchor:[0,-14]})}).addTo(map);
+  m.bindPopup(html, {maxWidth:270});
+  return m;
+}
+STOPS.forEach(s=>{
+  const delay = (s.n-1)*0.09;
+  if(s.n===7){ const m = addPin(s.lat, s.lng, '7–9', 'multi', popupAP(), delay); markers[7]=markers[8]=markers[9]=m; }
+  else if(s.n===8||s.n===9){ return; }
+  else {
+    const cls = s.tag==='START' ? 'start' : s.tag==='FINISH' ? 'finish' : '';
+    markers[s.n] = addPin(s.lat, s.lng, s.n, cls, popupSingle(s), delay);
+  }
+});
+
+// itinerary panel
+const itin = document.getElementById('itin');
+const ACT_NAME = {day:"day walks", tramp:"overnight tramps", heritage:"heritage"};
+STOPS.forEach(s=>{
+  const row = document.createElement('button');
+  row.type = 'button';
+  row.className = 'row' + (s.tag==='FINISH' || s.tag==='START' ? ' finish' : '');
+  row.setAttribute('aria-label', 'Hub '+s.n+', '+s.name+(s.tag?' ('+s.tag.toLowerCase()+')':'')
+    +', '+s.dates+', '+s.nights+' night'+(s.nights>1?'s':'')+'. '
+    +s.acts.map(a=>ACT_NAME[a]).join(', ')+'. Show on map.');
+  row.innerHTML = '<span class="badge" aria-hidden="true">'+s.n+'</span>'
+    + '<span class="who"><span class="nm">'+s.name+(s.tag?'<span class="tag">('+s.tag+')</span>':'')+'</span>'
+    + '<span class="dt"><b>'+s.dates+'</b></span></span>'
+    + '<span class="ico" aria-hidden="true">'+s.acts.map(a=>ACT_ICON[a]).join('')+'</span>'
+    + '<span class="nights-pill" aria-hidden="true">'+s.nights+' night'+(s.nights>1?'s':'')+'</span>';
+  row.onclick = ()=>{
+    tourSuspend();
+    document.querySelectorAll('.row').forEach(r=>r.classList.remove('active'));
+    row.classList.add('active');
+    const m = markers[s.n];
+    map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 9), {duration:.8});
+    m.openPopup();
+  };
+  itin.appendChild(row);
+});
+
+/* ================= Animated Safari Tour ================= */
+const routeLL = ROUTE.map(p=>L.latLng(p[0],p[1]));
+const cum = [0];
+for(let i=1;i<routeLL.length;i++) cum.push(cum[i-1] + routeLL[i-1].distanceTo(routeLL[i]));
+const TOTAL = cum[cum.length-1];
+
+// hubs in visiting order, matched to route distance (handles out-and-back legs)
+const stopSeq = STOPS.filter(s=>s.n!==8 && s.n!==9);
+const targets = [];
+{ let j = 0;
+  stopSeq.forEach(s=>{
+    let k = j;
+    while(k<routeLL.length && routeLL[k].distanceTo(L.latLng(s.lat,s.lng))>400) k++;
+    if(k>=routeLL.length) k = routeLL.length-1;
+    targets.push({dist:cum[k], stop:s});
+    j = k+1;
+  });
+}
+
+function pointAt(d){
+  if(d<=0) return routeLL[0];
+  if(d>=TOTAL) return routeLL[routeLL.length-1];
+  let i=1; while(cum[i]<d) i++;
+  const t = (d-cum[i-1])/(cum[i]-cum[i-1] || 1);
+  const a=routeLL[i-1], b=routeLL[i];
+  return L.latLng(a.lat+(b.lat-a.lat)*t, a.lng+(b.lng-a.lng)*t);
+}
+function traversed(d){
+  const pts=[routeLL[0]];
+  for(let i=1;i<routeLL.length && cum[i]<=d;i++) pts.push(routeLL[i]);
+  pts.push(pointAt(d));
+  return pts;
+}
+
+const playBtn=document.getElementById('playBtn'), speedBtn=document.getElementById('speedBtn'),
+      resetBtn=document.getElementById('resetBtn'), ticker=document.getElementById('ticker');
+const BASE_MPS = 14000;               // metres of route per second at 1×
+let tour=null;                        // {dist, ti, phase, pauseUntil, raf, last}
+let speed=1;
+let van=null, progressLine=null;
+
+function tickerText(html){ ticker.style.display='block'; ticker.innerHTML=html; }
+function highlightRows(ns, on){
+  document.querySelectorAll('.row').forEach((r,i)=>{
+    const n=i+1;
+    if(ns.includes(n)){ r.classList.toggle('active', on); if(on && n===ns[0]) r.scrollIntoView({block:'nearest', behavior:'smooth'}); }
+    else if(on) r.classList.remove('active');
+  });
+}
+function stopLabel(s){
+  if(s.n===7) return '<b>Hubs 7–9 · Arthur\'s Pass</b> — Feb 15–20 · 6 nights';
+  const nts = s.nights+' night'+(s.nights>1?'s':'');
+  return '<b>Hub '+s.n+' · '+s.name+'</b> — '+s.dates+' · '+nts;
+}
+function pauseMsFor(s){ const n = s.n===7 ? 6 : s.nights; return (900 + n*220)/speed; }
+
+let lastPan = 0;
+function tourStart(){
+  van = L.marker(routeLL[0], {zIndexOffset:1000, interactive:false,
+    icon:L.divIcon({className:'', html:'<div class="vanicon">🚐</div>', iconSize:[28,28], iconAnchor:[14,14]})}).addTo(map);
+  progressLine = L.polyline([routeLL[0]], {color:'#7d2a1f', weight:4, opacity:.9}).addTo(map);
+  tour = {dist:0, ti:0, phase:'drive', pauseUntil:0, last:performance.now(), playing:true};
+  speedBtn.style.display='inline-block'; resetBtn.style.display='inline-block';
+  playBtn.textContent='❚❚ Pause';
+  tickerText('🚐 Leaving the top of the Coast…');
+  map.flyTo(routeLL[0], Math.max(map.getZoom(), 8), {duration:1});
+  lastPan = performance.now() + 1000;
+  tour.raf = requestAnimationFrame(step);
+}
+function step(now){
+  if(!tour || !tour.playing) return;
+  const dt = Math.min((now - tour.last)/1000, .1); tour.last = now;
+  if(tour.phase==='pause'){
+    if(now >= tour.pauseUntil){
+      tour.phase='drive'; tour.ti++;
+      if(tour.ti >= targets.length){ tourEnd(); return; }
+      map.closePopup();
+      tickerText('🚐 On the road → <b>'+(targets[tour.ti].stop.n===7?'Arthur\'s Pass':targets[tour.ti].stop.name)+'</b>');
+    }
+  } else {
+    tour.dist += BASE_MPS*speed*dt;
+    const tgt = targets[tour.ti];
+    if(tour.dist >= tgt.dist){
+      tour.dist = tgt.dist;
+      tour.phase='pause'; tour.pauseUntil = now + pauseMsFor(tgt.stop);
+      const s = tgt.stop;
+      const ns = s.n===7 ? [7,8,9] : [s.n];
+      highlightRows(ns, true);
+      markers[s.n].openPopup();
+      tickerText(stopLabel(s));
+    } else {
+      const nxt = targets[tour.ti].stop;
+      tickerText('🚐 On the road → <b>'+(nxt.n===7?'Arthur\'s Pass':nxt.name)+'</b>');
+    }
+    van.setLatLng(pointAt(tour.dist));
+    progressLine.setLatLngs(traversed(tour.dist));
+    // camera follow: gentle catch-up pan when the van strays from the middle of the view
+    if(now - lastPan > 900 && !map.getBounds().pad(-0.25).contains(van.getLatLng())){
+      map.panTo(van.getLatLng(), {animate:true, duration:.8});
+      lastPan = now;
+    }
+  }
+  tour.raf = requestAnimationFrame(step);
+}
+function tourEnd(){
+  tour.playing=false;
+  playBtn.textContent='▶ Replay';
+  tickerText('🎉 <b>That\'s the Safari!</b> 15 hubs · 41 nights · one very happy van.');
+  map.closePopup();
+  map.flyToBounds(FIT_BOUNDS, {padding:[12,12], duration:1.4});
+}
+function tourSuspend(){
+  if(tour && tour.playing){ tour.playing=false; playBtn.textContent='▶ Resume'; }
+}
+function tourReset(){
+  if(tour && tour.raf) cancelAnimationFrame(tour.raf);
+  tour=null;
+  if(van){ map.removeLayer(van); van=null; }
+  if(progressLine){ map.removeLayer(progressLine); progressLine=null; }
+  map.closePopup();
+  document.querySelectorAll('.row').forEach(r=>r.classList.remove('active'));
+  playBtn.textContent='▶ Play the Safari';
+  speedBtn.style.display='none'; resetBtn.style.display='none'; ticker.style.display='none';
+  map.fitBounds(FIT_BOUNDS, {padding:[12,12]});
+}
+playBtn.onclick = ()=>{
+  if(!tour){ tourStart(); return; }
+  if(tour.playing){ tourSuspend(); }
+  else if(playBtn.textContent==='▶ Replay'){ tourReset(); tourStart(); }
+  else { tour.playing=true; tour.last=performance.now(); playBtn.textContent='❚❚ Pause'; tour.raf=requestAnimationFrame(step); }
+};
+speedBtn.onclick = ()=>{ speed = speed===1?2:speed===2?4:1; speedBtn.textContent=speed+'×'; };
+resetBtn.onclick = tourReset;
+
+// auto-play shortly after load — but never for reduced-motion users,
+// and any interaction beforehand cancels it (they're already exploring)
+let userActed = false;
+['pointerdown','keydown','wheel','touchstart'].forEach(ev =>
+  addEventListener(ev, ()=>{ userActed = true; }, {once:true, capture:true, passive:true}));
+if(!window.__NO_AUTOPLAY && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  setTimeout(()=>{ if(!tour && !userActed) tourStart(); }, 3000);
+}
+</script>
+</body>
+</html>
