@@ -200,14 +200,15 @@
   @media (max-width: 900px){
     .main{grid-template-columns:1fr;}
     .map-wrap{border-right:none; border-bottom:3px solid var(--navy); min-height:0; flex-direction:column;}
-    #map{height:58vh; min-height:400px; flex:none; width:100%; order:0;}
+    /* svh = viewport with the mobile address bar visible, so the bar never covers the map */
+    #map{height:58vh; height:58svh; min-height:400px; flex:none; width:100%; order:0;}
     /* tour controls become a full-width strip below the map — nothing overlays the pins */
     .tourbar{position:static; order:1; padding:10px 12px; background:var(--parch2); border-top:2px solid var(--navy); justify-content:center;}
     .tbtn{font-size:1rem; padding:10px 18px;}
     .ticker{flex:1 1 100%; max-width:none; font-size:.95rem; text-align:center;}
     .map-note{position:static; order:2; transform:none; max-width:none; margin:0; border:none; border-top:1.5px dashed var(--ochre); border-radius:0; background:var(--parch2); text-align:center; padding:5px 10px 8px; font-size:.75rem;}
     aside{max-height:none;}
-    .itin{max-height:min(48vh, 420px);}
+    .itin{max-height:min(48vh, 420px); max-height:min(48svh, 420px);}
     .lower{grid-template-columns:1fr;}
     .panel + .panel{border-left:none; border-top:3px double var(--navy);}
     header{gap:10px; padding:12px 14px 10px;}
@@ -472,7 +473,18 @@ function tickerText(html){ ticker.style.display='block'; ticker.innerHTML=html; 
 function highlightRows(ns, on){
   document.querySelectorAll('.row').forEach((r,i)=>{
     const n=i+1;
-    if(ns.includes(n)){ r.classList.toggle('active', on); if(on && n===ns[0]) r.scrollIntoView({block:'nearest', behavior:'smooth'}); }
+    if(ns.includes(n)){
+      r.classList.toggle('active', on);
+      // scroll the itinerary panel only — scrollIntoView would drag the whole
+      // page down on phones, where the panel sits below the map
+      if(on && n===ns[0]){
+        const p = r.closest('.itin');
+        if(p){
+          const d = r.getBoundingClientRect().top - p.getBoundingClientRect().top;
+          p.scrollTo({top: p.scrollTop + d - (p.clientHeight - r.offsetHeight)/2, behavior:'smooth'});
+        }
+      }
+    }
     else if(on) r.classList.remove('active');
   });
 }
