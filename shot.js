@@ -1,6 +1,6 @@
-const { chromium } = require('playwright');
+const launch = require('./pw_launch');
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await launch();
   for (const [name, w, h] of [['desktop',1400,1000],['mobile',390,844]]) {
     const page = await browser.newPage({viewport:{width:w,height:h}});
     page.on('console', m => { if(m.type()==='error') console.log('CONSOLE ERR:', m.text().slice(0,200)); });

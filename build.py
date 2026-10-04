@@ -2,11 +2,14 @@
 """Assemble the final website (and a locally-testable variant) from the template.
 
 Usage:  python3 build.py
-Inputs: site_template.html, stops.js, logo_b64.txt, nz_polys_min.json
+Inputs: site_template.html, stops.js, logo_b64.txt, nz_polys_min.json, favicon_b64.txt, appletouch_b64.txt
 Output: South_Island_Safari_Map.html  (single-file site, CDN assets — ship this)
         test_local.html               (same, but local leaflet/fonts from node_modules
                                        for offline/headless testing; needs `npm install`)
 """
+import safari_data
+safari_data.validate()   # date chain / totals sanity check on stops.js before anything is built
+
 tpl = open('site_template.html').read()
 stops = open('stops.js').read()
 logo = open('logo_b64.txt').read().strip()

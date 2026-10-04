@@ -1,10 +1,11 @@
 // Mobile-viewport tour check: play → reset mid-tour → replay from scratch → run to end.
-const { chromium } = require('playwright');
+const launch = require('./pw_launch');
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await launch();
   const page = await browser.newPage({viewport:{width:390,height:844}});
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
+  await page.addInitScript(() => { window.__NO_AUTOPLAY = true; }); // tests drive the tour themselves
   await page.goto('file://' + process.cwd() + '/test_local.html');
   await page.waitForTimeout(2000);
 
@@ -12,12 +13,12 @@ const { chromium } = require('playwright');
   await page.waitForTimeout(2500);
   await page.click('#resetBtn');                       // reset mid-tour
   const afterReset = await page.textContent('#playBtn');
-  const speedVisible = await page.isVisible('#speedBtn');
+  const speedVisible = await page.isVisible('#speedGrp');
   const tickerVisible = await page.isVisible('#ticker');
   const vans = await page.locator('.vanicon').count();
 
   await page.click('#playBtn');                        // replay from scratch
-  await page.click('#speedBtn'); await page.click('#speedBtn'); // 4x
+  await page.click('.sbtn[data-s="4"]'); // 4x
   await page.waitForTimeout(32000);
   const ticker = await page.textContent('#ticker');
   const playTxt = await page.textContent('#playBtn');

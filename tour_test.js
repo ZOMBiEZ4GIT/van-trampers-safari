@@ -1,15 +1,16 @@
-const { chromium } = require('playwright');
+const launch = require('./pw_launch');
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await launch();
   const page = await browser.newPage({viewport:{width:1400,height:1000}});
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
+  await page.addInitScript(() => { window.__NO_AUTOPLAY = true; }); // tests drive the tour themselves
   await page.goto('file://' + process.cwd() + '/test_local.html');
   await page.waitForTimeout(2000);
   await page.click('#playBtn');
   await page.waitForTimeout(4000);
   await page.screenshot({path:'tour_1.png', clip:{x:0,y:150,width:1400,height:850}});
-  await page.click('#speedBtn'); await page.click('#speedBtn'); // 4x
+  await page.click('.sbtn[data-s="4"]'); // 4x
   await page.waitForTimeout(16000);
   await page.screenshot({path:'tour_2.png', clip:{x:0,y:150,width:1400,height:850}});
   await page.waitForTimeout(14000);

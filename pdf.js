@@ -1,6 +1,6 @@
-const { chromium } = require('playwright');
+const launch = require('./pw_launch');
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await launch();
   const page = await browser.newPage();
   await page.goto('file://' + process.cwd() + '/fridge.html');
   await page.waitForTimeout(1200);

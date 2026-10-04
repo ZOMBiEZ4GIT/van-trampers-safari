@@ -10,3 +10,6 @@ shot_*.png
 tour_*.png
 header_check.png
 live_*.png
+og.html
+tshirt/*.html
+__pycache__/

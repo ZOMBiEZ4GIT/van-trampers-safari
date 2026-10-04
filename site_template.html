@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Van Trampers — South Island Safari 2027</title>
-<meta name="description" content="The Van Trampers' South Island Safari, 1 Feb – 14 Mar 2027: 15 hubs, 41 nights. Explore the route map, play the animated safari tour, and print the A4 fridge map.">
+<meta name="description" content="The Van Trampers' South Island Safari, 1 Feb – 13 Mar 2027: 15 hubs, 40 nights. Explore the route map, play the animated safari tour, and print the A4 fridge map.">
 <link rel="icon" type="image/png" href="data:image/png;base64,__FAVICON__">
 <link rel="apple-touch-icon" href="data:image/png;base64,__APPLETOUCH__">
 <meta name="theme-color" content="#1e3a5f">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Van Trampers">
 <meta property="og:title" content="South Island Safari 2027 — Van Trampers">
-<meta property="og:description" content="1 Feb – 14 Mar 2027 · 15 hubs · 41 nights. Tap to explore the route, play the animated safari tour, and print the fridge map.">
+<meta property="og:description" content="1 Feb – 13 Mar 2027 · 15 hubs · 40 nights. Tap to explore the route, play the animated safari tour, and print the fridge map.">
 <meta property="og:url" content="https://zombiez4git.github.io/van-trampers-safari/">
 <meta property="og:image" content="https://zombiez4git.github.io/van-trampers-safari/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -88,6 +88,15 @@
   }
   .tbtn:hover{filter:brightness(1.08);}
   .tbtn.ghost{background:var(--navy); border-color:#12253d;}
+  .speedgrp{display:inline-flex; border:2px solid #12253d; border-radius:8px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,.3);}
+  .sbtn{
+    font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.5px; font-size:.82rem; color:#fdf6e6;
+    background:var(--navy); border:0; border-right:1px solid #12253d; padding:6px 10px; cursor:pointer;
+  }
+  .sbtn:last-child{border-right:0;}
+  .sbtn:hover{filter:brightness(1.15);}
+  .sbtn[aria-pressed="true"]{background:var(--ochre); color:#1e2a3a;}
+  .sbtn:focus-visible{outline:3px solid var(--ochre); outline-offset:-3px;}
   .tbtn:focus-visible, .row:focus-visible, .pdflink:focus-visible, a:focus-visible{
     outline:3px solid var(--ochre); outline-offset:2px;
   }
@@ -142,6 +151,7 @@
   .row .dt{font-size:.8rem; color:#5f4e34;}
   .row .dt b{color:var(--red); font-weight:700;}
   .row .ico{font-size:.85rem; letter-spacing:1px; flex:0 0 auto;}
+  .row .ico .fun{filter:drop-shadow(0 1px 0 rgba(0,0,0,.15));}
   .nights-pill{
     flex:0 0 auto; font-family:'Oswald',sans-serif; font-size:.72rem; font-weight:600; color:var(--navy);
     border:1.5px solid var(--navy); border-radius:10px; padding:1px 7px; background:#fff8; white-space:nowrap;
@@ -160,6 +170,9 @@
   .pp .chips{display:flex; flex-wrap:wrap; gap:4px;}
   .chip{font-size:11px; border:1.2px solid var(--ochre); background:#f6edd6; border-radius:9px; padding:2px 7px; color:var(--ink);}
   .pp .refs{margin-top:6px; font-size:11.5px; color:#6e5a3c;}
+  .pp .note{margin-top:5px; font-family:'Special Elite',cursive; font-size:11.5px; color:var(--green);}
+  .pp .hint{margin-top:6px; font-size:11px; color:#6e5a3c; font-style:italic;}
+  .chip.fun{border-color:var(--green); background:#e8efe3;}
   .pp .stint{border-top:1px dashed #cbb98e; padding-top:5px; margin-top:5px;}
   /* markers */
   .pin{
@@ -187,7 +200,8 @@
   .legend-grid{display:grid; grid-template-columns:1fr; gap:8px;}
   .leg{display:flex; gap:10px; align-items:center; font-size:.9rem;}
   .leg .sym{font-size:20px; width:32px; text-align:center; filter:sepia(.2);}
-  .coming{margin-top:14px; font-family:'Special Elite',cursive; font-size:.85rem; color:var(--green); line-height:1.5;}
+  .hint{margin-top:14px; font-family:'Special Elite',cursive; font-size:.85rem; color:var(--green); line-height:1.5;}
+  .roll-close{margin-top:12px; font-family:'Special Elite',cursive; font-size:.92rem; color:var(--red); line-height:1.5; border-top:1px dashed #cbb98e; padding-top:10px;}
   footer{
     text-align:center; padding:10px 16px 14px; border-top:3px double var(--navy);
     font-family:'Special Elite',cursive; font-size:.85rem; color:var(--ink); background:var(--parch2);
@@ -208,10 +222,13 @@
     .ticker{flex:1 1 100%; max-width:none; font-size:.95rem; text-align:center;}
     .map-note{position:static; order:2; transform:none; max-width:none; margin:0; border:none; border-top:1.5px dashed var(--ochre); border-radius:0; background:var(--parch2); text-align:center; padding:5px 10px 8px; font-size:.75rem;}
     aside{max-height:none;}
-    .itin{max-height:min(48vh, 420px); max-height:min(48svh, 420px);}
+    .itin{overflow:visible; flex:none;}
+    .speedgrp{order:1;}
+    .sbtn{font-size:.95rem; padding:9px 12px;}
     .lower{grid-template-columns:1fr;}
     .panel + .panel{border-left:none; border-top:3px double var(--navy);}
     header{gap:10px; padding:12px 14px 10px;}
+    .ribbon{letter-spacing:1px; font-size:12.5px; padding:5px 16px;}
     header img.logo{width:64px;}
     .head-spacer{display:none;}
   }
@@ -225,7 +242,7 @@
       <div class="title-block">
         <div class="kicker">The Van Trampers Present</div>
         <h1>South Island <span class="safari">Safari</span></h1>
-        <div class="ribbon">1 Feb – 14 Mar 2027 &nbsp;•&nbsp; 15 Hubs &nbsp;•&nbsp; 41 Nights</div>
+        <div class="ribbon">1 Feb – 13 Mar 2027 &nbsp;•&nbsp; 15 Hubs &nbsp;•&nbsp; 40 Nights</div>
         <div class="countdown" id="countdown"></div>
       </div>
       <div class="head-spacer"><span class="van-emoji" aria-hidden="true">🚐</span></div>
@@ -237,7 +254,12 @@
         <div class="compass" aria-hidden="true"><span class="arrow">▲</span><span class="n">N</span></div>
         <div class="tourbar">
           <button class="tbtn" id="playBtn">▶ Play the Safari</button>
-          <button class="tbtn ghost" id="speedBtn" style="display:none">1×</button>
+          <div class="speedgrp" id="speedGrp" style="display:none" role="group" aria-label="Tour speed">
+            <button class="sbtn" data-s="0.5" aria-pressed="false" title="Slow and scenic">🐢 ½×</button>
+            <button class="sbtn" data-s="1" aria-pressed="true">1×</button>
+            <button class="sbtn" data-s="2" aria-pressed="false">2×</button>
+            <button class="sbtn" data-s="4" aria-pressed="false">4×</button>
+          </div>
           <button class="tbtn ghost" id="resetBtn" style="display:none">↺</button>
           <div class="ticker" id="ticker" style="display:none"></div>
         </div>
@@ -253,24 +275,27 @@
       <div class="panel">
         <h2>How We Roll</h2>
         <ul>
-          <li><b>Everything is optional</b> — your safari, your choice. Pick what suits your interests, fitness and energy.</li>
-          <li><b>Hub-based travel</b> — each stop offers a menu of day walks, bike rides, kayaking and overnight tramps.</li>
-          <li><b>Happy Hour HQ</b> — each evening we plan the next day's options and split into groups.</li>
-          <li><b>Weather rules</b> — plans may change at short notice; we go with the flow.</li>
-          <li><b>Share the load</b> — taxi-van contribution $4 per person per leg (TBC).</li>
-          <li><b>Stay connected</b> — logistics, hut bookings and shuttles organised via the WhatsApp group.</li>
+          <li><b>Fifteen hubs, six weeks</b> — the Safari is based around 15 geographical localities, with time to properly explore each one.</li>
+          <li><b>A flexible trip, not a guided tour</b> — everything is optional. Choose what suits your interests, fitness, energy levels and the weather.</li>
+          <li><b>A menu at every hub</b> — day walks, occasional bike rides, kayaking and, for those keen, a selection of overnight or multi-day tramps. Choices rather than a fixed schedule.</li>
+          <li><b>Happy Hour HQ</b> — each evening we talk through the next day's options, decide who wants to do what, organise transport and naturally split into smaller groups.</li>
+          <li><b>Tramps need logistics</b> — some overnight tramps need vehicle shuttles, drop-offs or van relocations. Start the chat early on WhatsApp and at rallies so hut bookings and transport can be sorted. The tramps are often the easy part!</li>
+          <li><b>Weather rules</b> — plans may change at short notice. Parking restrictions may spread us over more than one spot in some towns, but WhatsApp keeps us connected.</li>
+          <li><b>Share the load</b> — a taxi-van contribution of $4 per person, per leg is proposed (TBC).</li>
+          <li><b>Lay days</b> — may coincide with travel days, or be a chance for a shorter walk, local sightseeing or simply relaxing. Expect the occasional meal out together.</li>
         </ul>
-        <div class="coming">Coming soon: the Safari Handbook, hub-by-hub walk guides, DOC brochures &amp; GPX files on the shared drive.</div>
+        <div class="roll-close">Above all, the Safari is about good company, shared adventure, flexibility and the freedom for everyone to enjoy the journey in their own way.</div>
       </div>
       <div class="panel">
         <h2>Icon Guide</h2>
         <div class="legend-grid">
-          <div class="leg"><span class="sym">🥾</span> Day walks</div>
           <div class="leg"><span class="sym">⛺</span> Overnight / multi-day tramp options</div>
           <div class="leg"><span class="sym">🏛️</span> Heritage &amp; history</div>
+          <div class="leg"><span class="sym">🚲</span> Bring the bikes</div>
+          <div class="leg"><span class="sym">🥧</span> Famous pie stop</div>
           <div class="leg"><span class="sym">🟢</span> Start &amp; finish hubs</div>
         </div>
-        <div class="coming">Tap a number on the map — or a row in the itinerary — for dates, nights and notes for that hub.</div>
+        <div class="hint">Day walks are on the menu at every hub, so they don't get an icon.<br>Tap a number on the map — or a row in the itinerary — for dates, nights and notes for that hub. Zoom in around Arthur's Pass to split hubs 7, 8 and 9 apart.</div>
       </div>
     </div>
 
@@ -287,8 +312,11 @@
 __STOPS__
 const NZ_POLYS = __NZ__;
 
-const ACT_LABEL = {day:"🥾 Day walks", tramp:"⛺ Overnight tramp", heritage:"🏛️ Heritage / history"};
-const ACT_ICON  = {day:"🥾", tramp:"⛺", heritage:"🏛️"};
+const ACT_LABEL = {tramp:"⛺ Overnight tramp", heritage:"🏛️ Heritage / history"};
+const ACT_ICON  = {tramp:"⛺", heritage:"🏛️"};
+const FUN_LABEL = {bike:"🚲 Bring the bikes", pie:"🥧 Famous pie stop"};
+const FUN_ICON  = {bike:"🚲", pie:"🥧"};
+const TRIP = {hubs:15, nights:40};
 
 const map = L.map('map', {scrollWheelZoom:true, zoomSnap:.5});
 const FIT_BOUNDS = L.latLngBounds([[-44.35,170.75],[-41.5,172.45]]);
@@ -297,7 +325,7 @@ map.fitBounds(FIT_BOUNDS, {padding:[12,12]});
 // countdown to departure (device local time — the whole crew is in NZ)
 (function(){
   const el = document.getElementById('countdown');
-  const depart = new Date(2027,1,1), home = new Date(2027,2,15);
+  const depart = new Date(2027,1,1), home = new Date(2027,2,14);
   const now = new Date();
   const sleeps = Math.ceil((depart - now)/864e5);
   if(sleeps > 1) el.textContent = '🚐 ' + sleeps.toLocaleString() + ' sleeps until departure!';
@@ -325,68 +353,97 @@ esri.addTo(map);
 L.polyline(ROUTE, {color:'#fdf6e6', weight:7, opacity:.85}).addTo(map);
 L.polyline(ROUTE, {color:'#a93a2c', weight:3.5, dashArray:'7 6', opacity:.95, className:'route-dash'}).addTo(map);
 
-function chips(acts){ return '<div class="chips">' + acts.map(a=>'<span class="chip">'+ACT_LABEL[a]+'</span>').join('') + '</div>'; }
-
+const nightsTxt = n => n+' night'+(n>1?'s':'');
+function chips(s){
+  const c = s.acts.map(a=>'<span class="chip">'+ACT_LABEL[a]+'</span>')
+    .concat((s.fun||[]).map(f=>'<span class="chip fun">'+FUN_LABEL[f]+'</span>'));
+  return c.length ? '<div class="chips">'+c.join('')+'</div>' : '';
+}
 function popupSingle(s){
   const tag = s.tag ? ' <span class="tag">('+s.tag+')</span>' : '';
   return '<div class="pp"><h3>'+s.n+'. '+s.name+tag+'</h3>'
-    + '<div class="dates">'+s.dates+' · '+s.nights+' night'+(s.nights>1?'s':'')+'</div>'
-    + '<div class="blurb">'+s.blurb+'</div>' + chips(s.acts)
-    + '<div class="refs">Walk refs: '+s.refs+'</div></div>';
+    + '<div class="dates">'+s.dates+' · '+nightsTxt(s.nights)+'</div>'
+    + '<div class="blurb">'+s.blurb+'</div>' + chips(s)
+    + (s.note ? '<div class="note">'+s.note+'</div>' : '')
+    + '<div class="refs">Site ID: '+s.ids+'</div></div>';
 }
 
-// Arthur's Pass 7–9 share one pin
-const apStops = STOPS.filter(s=>s.n>=7 && s.n<=9);
-function popupAP(){
-  let h = '<div class="pp"><h3>7–9. Arthur\'s Pass</h3>'
-    + '<div class="dates">Feb 15–20 · 6 nights, 3 stints</div>'
-    + '<div class="blurb">'+apStops[0].blurb+'</div>';
-  apStops.forEach(s=>{
-    h += '<div class="stint"><b>'+s.n+'. '+s.name+'</b> — '+s.dates+' ('+s.nights+' nights)<br>'
-      + s.acts.map(a=>ACT_ICON[a]).join(' ') + ' <span class="refs" style="margin-top:0">refs '+s.refs+'</span></div>';
+/* Hubs 7–9 (Arthur's Pass, Hawdon Valley, Cass) sit within 20 km of each other, so at
+   low zoom they share one pin; zooming in splits them apart. */
+const byN = {}; STOPS.forEach(s=>byN[s.n]=s);
+const CLUSTERS = [
+  {ns:[7,8,9], label:'7–9', title:"Arthur's Pass country", show:z=>z<8},
+  {ns:[8,9],   label:'8–9', title:"Hawdon Valley & Cass",   show:z=>z>=8 && z<10},
+];
+const SINGLE_SHOW = {7:z=>z>=8, 8:z=>z>=10, 9:z=>z>=10};
+function popupCluster(c){
+  const ss = c.ns.map(n=>byN[n]);
+  const nights = ss.reduce((a,s)=>a+s.nights,0);
+  const span = ss[0].dates.split('–')[0].trim() + ' – ' + ss[ss.length-1].dates.replace(/^.*?(\d+)\s*$/,'$1');
+  let h = '<div class="pp"><h3>'+c.label+'. '+c.title+'</h3>'
+    + '<div class="dates">'+span+' · '+nightsTxt(nights)+', '+ss.length+' hubs</div>';
+  ss.forEach(s=>{
+    h += '<div class="stint"><b>'+s.n+'. '+s.name+'</b> — '+s.dates+' ('+nightsTxt(s.nights)+')<br>'
+      + s.acts.map(a=>ACT_ICON[a]).concat((s.fun||[]).map(f=>FUN_ICON[f])).join(' ')
+      + ' <span class="refs" style="margin-top:0">Site ID '+s.ids+'</span></div>';
   });
-  return h + '</div>';
+  return h + '<div class="hint">Zoom in to see each hub on its own pin.</div></div>';
 }
 
-const markers = {};
-function addPin(lat,lng,label,cls,html,delay){
+const markers = {}, clusterMarkers = [];
+function makePin(lat,lng,label,cls,html,delay){
   const w = cls.includes('multi') ? 40 : 30;
-  const m = L.marker([lat,lng], {icon: L.divIcon({className:'', html:'<div class="pin '+cls+'" style="--d:'+delay+'s">'+label+'</div>', iconSize:[w,30], iconAnchor:[w/2,15], popupAnchor:[0,-14]})}).addTo(map);
+  const m = L.marker([lat,lng], {icon: L.divIcon({className:'', html:'<div class="pin '+cls+'" style="--d:'+delay+'s">'+label+'</div>', iconSize:[w,30], iconAnchor:[w/2,15], popupAnchor:[0,-14]})});
   m.bindPopup(html, {maxWidth:270});
   return m;
 }
 STOPS.forEach(s=>{
-  const delay = (s.n-1)*0.09;
-  if(s.n===7){ const m = addPin(s.lat, s.lng, '7–9', 'multi', popupAP(), delay); markers[7]=markers[8]=markers[9]=m; }
-  else if(s.n===8||s.n===9){ return; }
-  else {
-    const cls = s.tag==='START' ? 'start' : s.tag==='FINISH' ? 'finish' : '';
-    markers[s.n] = addPin(s.lat, s.lng, s.n, cls, popupSingle(s), delay);
-  }
+  const cls = s.tag==='START' ? 'start' : s.tag==='FINISH' ? 'finish' : '';
+  markers[s.n] = makePin(s.lat, s.lng, s.n, cls, popupSingle(s), (s.n-1)*0.09);
 });
+CLUSTERS.forEach(c=>{
+  const ss = c.ns.map(n=>byN[n]);
+  const lat = ss.reduce((a,s)=>a+s.lat,0)/ss.length, lng = ss.reduce((a,s)=>a+s.lng,0)/ss.length;
+  clusterMarkers.push({c, m: makePin(lat, lng, c.label, 'multi', popupCluster(c), (c.ns[0]-1)*0.09)});
+});
+function setLayer(m, on){ if(on && !map.hasLayer(m)) m.addTo(map); else if(!on && map.hasLayer(m)) map.removeLayer(m); }
+function refreshPins(){
+  const z = map.getZoom();
+  STOPS.forEach(s=>setLayer(markers[s.n], SINGLE_SHOW[s.n] ? SINGLE_SHOW[s.n](z) : true));
+  clusterMarkers.forEach(({c,m})=>setLayer(m, c.show(z)));
+}
+refreshPins();
+map.on('zoomend', refreshPins);
+
+// a popup pinned to the hub itself — works whatever the pins are doing at this zoom
+function openHubPopup(s, autoPan){
+  L.popup({maxWidth:270, autoPan:!!autoPan}).setLatLng([s.lat,s.lng]).setContent(popupSingle(s)).openOn(map);
+}
 
 // itinerary panel
 const itin = document.getElementById('itin');
-const ACT_NAME = {day:"day walks", tramp:"overnight tramps", heritage:"heritage"};
+const ACT_NAME = {tramp:"overnight tramps", heritage:"heritage"};
+const FUN_NAME = {bike:"bike ride", pie:"famous pie"};
 STOPS.forEach(s=>{
   const row = document.createElement('button');
   row.type = 'button';
   row.className = 'row' + (s.tag==='FINISH' || s.tag==='START' ? ' finish' : '');
+  const extras = s.acts.map(a=>ACT_NAME[a]).concat((s.fun||[]).map(f=>FUN_NAME[f]));
   row.setAttribute('aria-label', 'Hub '+s.n+', '+s.name+(s.tag?' ('+s.tag.toLowerCase()+')':'')
-    +', '+s.dates+', '+s.nights+' night'+(s.nights>1?'s':'')+'. '
-    +s.acts.map(a=>ACT_NAME[a]).join(', ')+'. Show on map.');
+    +', '+s.dates+', '+nightsTxt(s.nights)+'. '+(extras.length ? extras.join(', ')+'. ' : '')+'Show on map.');
   row.innerHTML = '<span class="badge" aria-hidden="true">'+s.n+'</span>'
     + '<span class="who"><span class="nm">'+s.name+(s.tag?'<span class="tag">('+s.tag+')</span>':'')+'</span>'
     + '<span class="dt"><b>'+s.dates+'</b></span></span>'
-    + '<span class="ico" aria-hidden="true">'+s.acts.map(a=>ACT_ICON[a]).join('')+'</span>'
-    + '<span class="nights-pill" aria-hidden="true">'+s.nights+' night'+(s.nights>1?'s':'')+'</span>';
+    + '<span class="ico" aria-hidden="true">'+s.acts.map(a=>ACT_ICON[a]).join('')
+    + (s.fun||[]).map(f=>'<span class="fun">'+FUN_ICON[f]+'</span>').join('')+'</span>'
+    + '<span class="nights-pill" aria-hidden="true">'+nightsTxt(s.nights)+'</span>';
   row.onclick = ()=>{
     tourSuspend();
     document.querySelectorAll('.row').forEach(r=>r.classList.remove('active'));
     row.classList.add('active');
-    const m = markers[s.n];
-    map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 9), {duration:.8});
-    m.openPopup();
+    const z = (s.n>=7 && s.n<=9) ? 10.5 : Math.max(map.getZoom(), 9);
+    map.flyTo([s.lat,s.lng], z, {duration:.8});
+    openHubPopup(s, false);
   };
   itin.appendChild(row);
 });
@@ -398,10 +455,9 @@ for(let i=1;i<routeLL.length;i++) cum.push(cum[i-1] + routeLL[i-1].distanceTo(ro
 const TOTAL = cum[cum.length-1];
 
 // hubs in visiting order, matched to route distance (handles out-and-back legs)
-const stopSeq = STOPS.filter(s=>s.n!==8 && s.n!==9);
 const targets = [];
 { let j = 0;
-  stopSeq.forEach(s=>{
+  STOPS.forEach(s=>{
     let k = j;
     while(k<routeLL.length && routeLL[k].distanceTo(L.latLng(s.lat,s.lng))>400) k++;
     if(k>=routeLL.length) k = routeLL.length-1;
@@ -425,9 +481,9 @@ function traversed(d){
   return pts;
 }
 
-const playBtn=document.getElementById('playBtn'), speedBtn=document.getElementById('speedBtn'),
+const playBtn=document.getElementById('playBtn'), speedGrp=document.getElementById('speedGrp'),
       resetBtn=document.getElementById('resetBtn'), ticker=document.getElementById('ticker');
-const BASE_MPS = 14000;               // metres of route per second at 1×
+const BASE_MPS = 11000;               // metres of route per second at 1× (½× is the scenic option)
 let tour=null;                        // {dist, ti, phase, pauseUntil, raf, last}
 let speed=1;
 let van=null, progressLine=null;
@@ -442,7 +498,7 @@ function highlightRows(ns, on){
       // page down on phones, where the panel sits below the map
       if(on && n===ns[0]){
         const p = r.closest('.itin');
-        if(p){
+        if(p && p.scrollHeight > p.clientHeight){
           const d = r.getBoundingClientRect().top - p.getBoundingClientRect().top;
           p.scrollTo({top: p.scrollTop + d - (p.clientHeight - r.offsetHeight)/2, behavior:'smooth'});
         }
@@ -452,11 +508,9 @@ function highlightRows(ns, on){
   });
 }
 function stopLabel(s){
-  if(s.n===7) return '<b>Hubs 7–9 · Arthur\'s Pass</b> — Feb 15–20 · 6 nights';
-  const nts = s.nights+' night'+(s.nights>1?'s':'');
-  return '<b>Hub '+s.n+' · '+s.name+'</b> — '+s.dates+' · '+nts;
+  return '<b>Hub '+s.n+' · '+s.name+'</b> — '+s.dates+' · '+nightsTxt(s.nights);
 }
-function pauseMsFor(s){ const n = s.n===7 ? 6 : s.nights; return (900 + n*220)/speed; }
+function pauseMsFor(s){ return (900 + s.nights*220)/speed; }
 
 let lastPan = 0;
 function tourStart(){
@@ -464,7 +518,7 @@ function tourStart(){
     icon:L.divIcon({className:'', html:'<div class="vanicon">🚐</div>', iconSize:[28,28], iconAnchor:[14,14]})}).addTo(map);
   progressLine = L.polyline([routeLL[0]], {color:'#7d2a1f', weight:4, opacity:.9}).addTo(map);
   tour = {dist:0, ti:0, phase:'drive', pauseUntil:0, last:performance.now(), playing:true};
-  speedBtn.style.display='inline-block'; resetBtn.style.display='inline-block';
+  speedGrp.style.display='inline-flex'; resetBtn.style.display='inline-block';
   playBtn.textContent='❚❚ Pause';
   tickerText('🚐 Leaving the top of the Coast…');
   map.flyTo(routeLL[0], Math.max(map.getZoom(), 8), {duration:1});
@@ -479,7 +533,7 @@ function step(now){
       tour.phase='drive'; tour.ti++;
       if(tour.ti >= targets.length){ tourEnd(); return; }
       map.closePopup();
-      tickerText('🚐 On the road → <b>'+(targets[tour.ti].stop.n===7?'Arthur\'s Pass':targets[tour.ti].stop.name)+'</b>');
+      tickerText('🚐 On the road → <b>'+targets[tour.ti].stop.name+'</b>');
     }
   } else {
     tour.dist += BASE_MPS*speed*dt;
@@ -488,13 +542,11 @@ function step(now){
       tour.dist = tgt.dist;
       tour.phase='pause'; tour.pauseUntil = now + pauseMsFor(tgt.stop);
       const s = tgt.stop;
-      const ns = s.n===7 ? [7,8,9] : [s.n];
-      highlightRows(ns, true);
-      markers[s.n].openPopup();
+      highlightRows([s.n], true);
+      openHubPopup(s, false);
       tickerText(stopLabel(s));
     } else {
-      const nxt = targets[tour.ti].stop;
-      tickerText('🚐 On the road → <b>'+(nxt.n===7?'Arthur\'s Pass':nxt.name)+'</b>');
+      tickerText('🚐 On the road → <b>'+targets[tour.ti].stop.name+'</b>');
     }
     van.setLatLng(pointAt(tour.dist));
     progressLine.setLatLngs(traversed(tour.dist));
@@ -509,7 +561,7 @@ function step(now){
 function tourEnd(){
   tour.playing=false;
   playBtn.textContent='▶ Replay';
-  tickerText('🎉 <b>That\'s the Safari!</b> 15 hubs · 41 nights · one very happy van.');
+  tickerText('🎉 <b>That\'s the Safari!</b> '+TRIP.hubs+' hubs · '+TRIP.nights+' nights · one very happy van.');
   map.closePopup();
   map.flyToBounds(FIT_BOUNDS, {padding:[12,12], duration:1.4});
 }
@@ -524,7 +576,7 @@ function tourReset(){
   map.closePopup();
   document.querySelectorAll('.row').forEach(r=>r.classList.remove('active'));
   playBtn.textContent='▶ Play the Safari';
-  speedBtn.style.display='none'; resetBtn.style.display='none'; ticker.style.display='none';
+  speedGrp.style.display='none'; resetBtn.style.display='none'; ticker.style.display='none';
   map.fitBounds(FIT_BOUNDS, {padding:[12,12]});
 }
 playBtn.onclick = ()=>{
@@ -533,7 +585,12 @@ playBtn.onclick = ()=>{
   else if(playBtn.textContent==='▶ Replay'){ tourReset(); tourStart(); }
   else { tour.playing=true; tour.last=performance.now(); playBtn.textContent='❚❚ Pause'; tour.raf=requestAnimationFrame(step); }
 };
-speedBtn.onclick = ()=>{ speed = speed===1?2:speed===2?4:1; speedBtn.textContent=speed+'×'; };
+speedGrp.querySelectorAll('.sbtn').forEach(b=>{
+  b.onclick = ()=>{
+    speed = parseFloat(b.dataset.s);
+    speedGrp.querySelectorAll('.sbtn').forEach(x=>x.setAttribute('aria-pressed', x===b ? 'true' : 'false'));
+  };
+});
 resetBtn.onclick = tourReset;
 
 // auto-play shortly after load — but never for reduced-motion users,

@@ -7,18 +7,26 @@ December 2026**.
 
 ## Source of truth
 
-`source/South_Island_Safari_1_Feb__14_Mar_Summary_Draft_5.07.26.docx` — Aunty C's
-Word summary table. **1 Feb – 14 Mar 2027, 15 hubs, 41 nights.**
+`source/VT_South_Island_Safari_2027_Summary_VT_VERSION.pdf` — Aunty C's
+post-reccie summary (received Oct 2026; text in `source/summary_VT_VERSION_extracted.txt`).
+**1 Feb – 13 Mar 2027, 15 hubs, 40 nights.** Replaces the Word doc Draft 5.07.26
+(which had Arthur's Pass ×3 and Peel Forest; now Arthur's Pass / Hawdon Valley / Cass
+and Hakatere, trip one day shorter). The 4-digit numbers are her **Site IDs**.
 
-⚠️ Her earlier AI-generated draft maps (`source/*.png`) show *different* dates
-(2 Feb – 31 Mar, different hub list). The Word doc was used everywhere. Roland
-was going to confirm with Aunty C that the Word doc is current — check before
-final publish.
+⚠️ One inconsistency in her PDF: Cass (hub 9) says "2 nights" but Arr Feb 20 /
+Dep Feb 21 — and her title says the trip ends 13 Mar, which only works with 1 night
+at Cass. We show **1 night** (date chain wins; 40 nights total). Confirm with her.
 
 Date format decision (agreed with Aunty C's suggestion): show the **nights
 occupied** as a range, e.g. Arr Feb 1 / Dep Feb 4 → "Feb 1–3 · 3 nights".
-Verified programmatically: every hub's range matches arr/dep, chain is
-continuous (each dep = next arr), totals 41 nights = Feb 1 → Mar 14.
+`safari_data.validate()` (run by build.py) checks every hub's range matches
+arr/dep, weekdays are right, the chain is continuous and the total is 40.
+
+Aunty C's Oct 2026 edit list (all done): phone-friendly/scrollable; no "Coming soon"
+wording; no Day Walks icon (every hub has day walks — tramp + heritage icons stay);
+no icons on the fridge-map label cards except 🚲 on Westport & Cass and 🥧 on
+Reefton & Oxford; full "How We Roll" text with the closing line visible at the
+bottom; a slower tour option (🐢 ½×, and 1× is slower than before).
 
 ## Deliverables (built, tested)
 
@@ -29,20 +37,29 @@ continuous (each dep = next arr), totals 41 nights = Feb 1 → Mar 14.
   combined pin/popup), dashed route with animated "marching ants", clickable
   itinerary sidebar, **▶ Play the Safari** animated van tour (van drives the
   route, pauses at each hub ∝ nights, opens popups, 1×/2×/4× speed,
-  pause/replay/reset, auto-plays ~3 s after load unless the user interacts
-  first or prefers reduced motion; camera gently follows the van; zooms to 8
-  on start, refits at end), countdown-of-sleeps widget in the header,
-  day-walk/tramp/heritage icons, "How We Roll" notes. Mobile responsive
-  (≤900 px the tour controls are a full-width strip *below* the map, route
-  note a caption under that — nothing overlays the pins). Meta/OG tags for
+  pause/replay/reset, ½×/1×/2×/4× speed, auto-plays ~3 s after load unless
+  the user interacts first or prefers reduced motion; camera gently follows
+  the van; zooms to 8 on start, refits at end), countdown-of-sleeps widget in
+  the header, tramp/heritage + bike/pie icons, "How We Roll" notes. Hubs 7–9
+  (Arthur's Pass, Hawdon Valley, Cass — all within 20 km) share a "7–9" pin
+  below zoom 8, split to "7" + "8–9" at 8–10, and to three pins from zoom 10;
+  tour and itinerary clicks open popups anchored to the hub itself so they
+  work at any zoom. Mobile responsive (≤900 px the tour controls are a
+  full-width strip *below* the map, route note a caption under that, and the
+  itinerary scrolls with the page — no nested scroll box). Meta/OG tags for
   WhatsApp unfurls + inline favicon/apple-touch icons. Itinerary rows are
   real `<button>`s (keyboard + screen-reader friendly), focus-visible styles
   throughout. Vintage safari theme: parchment #f2e9d4, navy #1e3a5f,
   red #a93a2c, green #3e6b4f; fonts Oswald / Special Elite / Nunito Sans.
 - `South_Island_Safari_Fridge_Map.pdf` — A4 landscape print companion, same
   theme: vector SVG map with label cards + summary table + legend + notes.
-- `og-image.jpg` — 1200×630 link-preview image (`node og_shot.js` regenerates
-  it from a headless screenshot; og:image URL in the template is absolute).
+- `og-image.jpg` — 1200×630 link-preview image (`python3 gen_og.py && node og_shot.js`
+  renders it from a vector map — no tiles/network needed; og:image URL in the
+  template is absolute).
+- `tshirt/` — merch mock-up for Aunty C's screen printer: `South_Island_Safari_Tshirt_Mockup.pdf`
+  (navy and sand colourways, front logo + back "tour dates" graphic, print spec page),
+  PNG previews, and print-ready `back_artwork_*.svg/.pdf` (300 × 400 mm, 2 spot colours).
+  `python3 gen_tshirt.py && node tshirt_pdf.js`.
 - `docs/` — the folder GitHub Pages serves (index.html, PDF, og-image.jpg,
   .nojekyll). Copy fresh builds in; don't edit in place.
 
@@ -53,12 +70,16 @@ continuous (each dep = next arr), totals 41 nights = Feb 1 → Mar 14.
   + `favicon_b64.txt` + `appletouch_b64.txt`. Placeholders in template:
   `__STOPS__`, `__LOGO__`, `__NZ__`, `__FAVICON__`, `__APPLETOUCH__`.
 - `python3 gen_fridge.py` → writes `fridge.html`; then `node pdf.js` → prints it
-  to `South_Island_Safari_Fridge_Map.pdf` via headless Chromium. The fridge
-  generator has its own copy of the stops/route data and hand-placed label-card
-  positions (LAB dict, planned against projected pin coords to avoid overlaps).
-  PDF embeds fonts via @fontsource woff2 (needs `npm install`).
-- Itinerary data lives in `stops.js` (site) and duplicated at the top of
-  `gen_fridge.py` (PDF). **If dates change, update both**, then rebuild both.
+  to `South_Island_Safari_Fridge_Map.pdf` via headless Chromium. Label-card
+  positions are hand-placed (LAB dict, planned against the projected pin coords
+  that `python3 safari_svg.py` prints, to avoid overlaps). Hubs 8–9 share one
+  nudged pin on the whole-island map; cards carry the hub number. PDF embeds
+  fonts via @fontsource woff2 (needs `npm install`); emoji need a colour emoji
+  font on the machine (Noto Color Emoji works).
+- Itinerary data lives in `stops.js` **only**. `safari_data.py` parses it for the
+  Python generators and validates the date chain; `safari_svg.py` is the shared
+  vector-map drawing (projection, coastline, route, pins) used by the fridge
+  map, og image and T-shirt. **If dates change, edit stops.js, then rebuild all.**
 - `nz_polys_min.json` = simplified South Island coastline, extracted from npm
   `@geo-maps/countries-coastline-2km5` (see git-less provenance in extraction
   code comments; rounding to 3 dp, islets < 12 pts dropped).
@@ -67,8 +88,10 @@ continuous (each dep = next arr), totals 41 nights = Feb 1 → Mar 14.
   if needed). `node shot.js` (desktop+mobile screenshots), `node tour_test.js`
   / `tour_test2.js` (plays the animated tour end-to-end, checks ticker/errors),
   `node tour_test3.js` (mobile viewport: reset mid-tour, replay, countdown).
-  Screenshot scripts set `window.__NO_AUTOPLAY` via addInitScript so stills
-  aren't taken mid-tour. Note: in the Cowork sandbox, CDN/tile requests are
+  All scripts launch Chromium through `pw_launch.js`, which falls back to a
+  preinstalled browser (`CHROMIUM_PATH` or `/opt/pw-browsers/chromium`) when
+  Playwright's own download is blocked. Screenshot and tour scripts set
+  `window.__NO_AUTOPLAY` via addInitScript so they aren't racing the auto-play. Note: in the Cowork sandbox, CDN/tile requests are
   blocked, hence `test_local.html`; in normal environments the shipped file
   just works.
 
@@ -77,8 +100,8 @@ continuous (each dep = next arr), totals 41 nights = Feb 1 → Mar 14.
 **Live** since Aug 2026 at https://zombiez4git.github.io/van-trampers-safari/ —
 GitHub Pages, public repo `ZOMBiEZ4GIT/van-trampers-safari`, deploy from
 branch `main`, folder `/docs`. To ship changes: rebuild, copy outputs into
-`docs/`, commit, push. ⚠️ Still confirm with Aunty C that the Word doc dates
-are current before she sends the link to the group.
+`docs/`, commit, push. ⚠️ Confirm the Cass nights question with Aunty C before
+she sends the link to the group.
 
 ## Ideas / possible next steps (discussed or floated)
 
@@ -88,6 +111,8 @@ are current before she sends the link to the group.
 - GPX downloads per hub / route GPX for the GPS-app users (mentioned in her
   "What's Coming" list — she'll supply files later).
 - ~~Auto-play on load, camera follow, countdown widget~~ — built Aug 2026.
+- ~~T-shirt merch mock-up~~ — built Oct 2026 (`tshirt/`); printer may want the
+  logo as a 1-colour version — ask Aunty C if she has a vector logo.
 - Live weather per hub closer to the date.
 - Printable per-hub one-pagers once her walk selections firm up.
 - Photo memento version after the trip (swap blurbs for group photos).
