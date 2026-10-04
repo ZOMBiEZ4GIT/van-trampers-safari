@@ -34,16 +34,16 @@ FONT_CSS = f'''
 # ---------- the back graphic: 300 x 400 mm, 1 user unit = 1 mm ----------
 def back_svg(cw, bg=None, uid='a'):
     ink, red, shirt = cw['ink'], cw['red'], cw['shirt']
-    MW, MH = 150, 158
+    MW, MH = 172, 176
     P = Proj(MW, MH)
     mx = (300 - MW) / 2
-    pins = pins_svg(P, pin_w=7.5, pin_h=7.5, font=4.2, cls_r=f'pr{uid}', cls_g=f'pr{uid}', cls_t=f'pt{uid}')
+    pins = pins_svg(P, pin_w=6.2, pin_h=6.2, font=3.6, cls_r=f'pr{uid}', cls_g=f'pr{uid}', cls_t=f'pt{uid}')
     # tour-dates list, rock-poster style: two columns
     rows = []
     left, right = STOPS[:8], STOPS[8:]
     for col, xs, xe in ((left, 22, 142), (right, 158, 278)):
         for i, s in enumerate(col):
-            y = 298 + i * 10.6
+            y = 306 + i * 10
             rows.append(f'<text x="{xs}" y="{y}" class="num{uid}">{s["n"]:02d}</text>'
                         f'<text x="{xs+12}" y="{y}" class="hub{uid}">{s["name"].upper()}</text>'
                         f'<text x="{xe}" y="{y}" text-anchor="end" class="dt{uid}">{s["dates"].upper()}</text>')
@@ -51,13 +51,13 @@ def back_svg(cw, bg=None, uid='a'):
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300mm" height="400mm">
 <style>
   .kick{uid}{{font-family:'Special Elite';font-size:6.2px;letter-spacing:1.2px;fill:{ink}}}
-  .t1{uid}{{font-family:'Oswald';font-weight:700;font-size:34px;letter-spacing:1px;fill:{ink}}}
-  .t2{uid}{{font-family:'Oswald';font-weight:700;font-size:50px;letter-spacing:3px;fill:{red}}}
+  .t1{uid}{{font-family:'Oswald';font-weight:700;font-size:31px;letter-spacing:1px;fill:{ink}}}
+  .t2{uid}{{font-family:'Oswald';font-weight:700;font-size:46px;letter-spacing:3px;fill:{red}}}
   .rib{uid}{{fill:{red}}} .ribt{uid}{{font-family:'Oswald';font-weight:600;font-size:7.2px;letter-spacing:1.6px;fill:{shirt}}}
   .land{uid}{{fill:none;stroke:{ink};stroke-width:.55;stroke-linejoin:round}}
   .route-case{uid}{{fill:none;stroke:{shirt};stroke-width:2.6;stroke-linejoin:round}}
   .route{uid}{{fill:none;stroke:{red};stroke-width:1.3;stroke-dasharray:2.4 1.8;stroke-linejoin:round}}
-  .pr{uid}{{fill:{red};stroke:{shirt};stroke-width:.7}} .pt{uid}{{font-family:'Oswald';font-weight:600;font-size:4.2px;fill:{shirt}}}
+  .pr{uid}{{fill:{red};stroke:{shirt};stroke-width:.7}} .pt{uid}{{font-family:'Oswald';font-weight:600;font-size:3.6px;fill:{shirt}}}
   .sea{uid}{{font-family:'Nunito Sans';font-style:italic;font-size:4.2px;letter-spacing:1.4px;fill:{ink};opacity:.75}}
   .num{uid}{{font-family:'Oswald';font-weight:700;font-size:6.4px;fill:{red}}}
   .hub{uid}{{font-family:'Oswald';font-weight:600;font-size:6.4px;letter-spacing:.4px;fill:{ink}}}
@@ -67,21 +67,21 @@ def back_svg(cw, bg=None, uid='a'):
 </style>
 {bgrect}
 <text x="150" y="14" text-anchor="middle" class="kick{uid}">THE VAN TRAMPERS PRESENT</text>
-<text x="150" y="48" text-anchor="middle" class="t1{uid}">SOUTH ISLAND</text>
-<text x="150" y="96" text-anchor="middle" class="t2{uid}">SAFARI</text>
-<polygon points="48,104 252,104 258,111 252,118 48,118 42,111" class="rib{uid}"/>
-<text x="150" y="113.6" text-anchor="middle" class="ribt{uid}">{TRIP['ribbon'].upper().replace('–','–')}</text>
-<g transform="translate({mx},126)">
+<text x="150" y="45" text-anchor="middle" class="t1{uid}">SOUTH ISLAND</text>
+<text x="150" y="89" text-anchor="middle" class="t2{uid}">SAFARI</text>
+<polygon points="48,96 252,96 258,103 252,110 48,110 42,103" class="rib{uid}"/>
+<text x="150" y="105.6" text-anchor="middle" class="ribt{uid}">{TRIP['ribbon'].upper().replace('–','–')}</text>
+<g transform="translate({mx},115)">
   <text x="8" y="22" class="sea{uid}">TASMAN SEA</text>
-  <text x="104" y="118" class="sea{uid}">PACIFIC OCEAN</text>
+  <text x="118" y="132" class="sea{uid}">PACIFIC OCEAN</text>
   {coast_polygons(P, cls=f'land{uid}', south_only=True)}
   <polyline points="{route_points(P)}" class="route-case{uid}"/>
   <polyline points="{route_points(P)}" class="route{uid}"/>
   {pins}
 </g>
-<line x1="22" y1="289" x2="278" y2="289" class="rule{uid}"/>
+<line x1="22" y1="296" x2="278" y2="296" class="rule{uid}"/>
 {''.join(rows)}
-<line x1="22" y1="383" x2="278" y2="383" class="rule{uid}"/>
+<line x1="22" y1="382" x2="278" y2="382" class="rule{uid}"/>
 <text x="150" y="394" text-anchor="middle" class="foot{uid}">GOOD COMPANY · SHARED ADVENTURE · FREEDOM TO ROAM</text>
 </svg>'''
 
