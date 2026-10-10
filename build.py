@@ -6,8 +6,9 @@ Inputs: site_template.html, stops.js, logo_b64.txt, nz_polys_min.json, favicon_b
 Output: South_Island_Safari_Map.html  (single-file site, CDN assets — ship this)
         test_local.html               (same, but local leaflet/fonts from node_modules
                                        for offline/headless testing; needs `npm install`)
+        South_Island_Safari_2027.ics  (calendar feed, via gen_ics.py — ship with the site)
 """
-import safari_data
+import safari_data, gen_ics
 safari_data.validate()   # date chain / totals sanity check on stops.js before anything is built
 
 tpl = open('site_template.html').read()
@@ -35,3 +36,5 @@ test = test.replace('<link href="https://fonts.googleapis.com/css2?family=Oswald
  '<link rel="stylesheet" href="node_modules/@fontsource/nunito-sans/700.css">')
 open('test_local.html', 'w').write(test)
 print('Built South_Island_Safari_Map.html and test_local.html')
+
+gen_ics.write()          # the "Add to my calendar" feed, from the same stops.js

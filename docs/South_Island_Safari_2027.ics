@@ -1,0 +1,271 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Van Trampers//South Island Safari 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:VT South Island Safari 2027
+X-WR-CALDESC:Van Trampers South Island Safari · 1 Feb – 13 Mar 2027 · 1
+ 5 hubs · 40 nights. https://zombiez4git.github.io/van-trampers-safari/
+X-WR-TIMEZONE:Pacific/Auckland
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VEVENT
+UID:safari2027-hub01@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270204
+SUMMARY:🚐 Safari #1 · Reefton (Start) — 3 nights
+LOCATION:Reefton\, New Zealand
+GEO:-42.117;171.867
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Reefton"
+ :geo:-42.117,171.867
+DESCRIPTION:Gold-rush town — first place in NZ lit by electric light\, an
+ d home to a legendary bakery pie.\n\nArrive Mon 1 Feb · depart Thu 4 Feb\
+ nOn the menu: 🥾 Day walks · 🏛️ Heritage & history · 🥧 Famous 
+ pie stop\nSite ID: 6531\n\nMap & full itinerary: https://zombiez4git.githu
+ b.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub02@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270204
+DTEND;VALUE=DATE:20270206
+SUMMARY:🚐 Safari #2 · Denniston — 2 nights
+LOCATION:Denniston\, New Zealand
+GEO:-41.738;171.8
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Dennisto
+ n":geo:-41.738,171.8
+DESCRIPTION:Historic coal plateau and the famous Denniston Incline.\n\nArri
+ ve Thu 4 Feb · depart Sat 6 Feb\nOn the menu: 🥾 Day walks · 🏛️ H
+ eritage & history\nSite ID: 6455\n\nMap & full itinerary: https://zombiez4
+ git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub03@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270206
+DTEND;VALUE=DATE:20270208
+SUMMARY:🚐 Safari #3 · Westport — 2 nights
+LOCATION:Westport\, New Zealand
+GEO:-41.754;171.601
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Westport
+ ":geo:-41.754,171.601
+DESCRIPTION:Buller River port town — Cape Foulwind seals\, and the Kawati
+ ri Coastal Trail for the bikes.\n\nArrive Sat 6 Feb · depart Mon 8 Feb\nO
+ n the menu: 🥾 Day walks · 🚲 Bring the bikes\nSite ID: 6479\nWe roll
+  out on Mon 8 Feb — Waitangi Day (observed).\n\nMap & full itinerary: ht
+ tps://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub04@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270208
+DTEND;VALUE=DATE:20270210
+SUMMARY:🚐 Safari #4 · Fox River — 2 nights
+LOCATION:Fox River\, New Zealand
+GEO:-42.018;171.373
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Fox Rive
+ r":geo:-42.018,171.373
+DESCRIPTION:Paparoa limestone country — river gorges\, caves and the Inla
+ nd Pack Track.\n\nArrive Mon 8 Feb · depart Wed 10 Feb\nOn the menu: 🥾
+  Day walks · ⛺ Overnight tramp options\nSite ID: 6507\n\nMap & full iti
+ nerary: https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub05@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270212
+SUMMARY:🚐 Safari #5 · Greymouth — 2 nights
+LOCATION:Greymouth\, New Zealand
+GEO:-42.45;171.207
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Greymout
+ h":geo:-42.45,171.207
+DESCRIPTION:The Coast's big smoke — history\, breweries and beaches.\n\nA
+ rrive Wed 10 Feb · depart Fri 12 Feb\nOn the menu: 🥾 Day walks · 🏛
+ ️ Heritage & history\nSite ID: 6635\n\nMap & full itinerary: https://zom
+ biez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub06@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270212
+DTEND;VALUE=DATE:20270214
+SUMMARY:🚐 Safari #6 · Lake Kaniere — 2 nights
+LOCATION:Lake Kaniere\, New Zealand
+GEO:-42.84;171.152
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Lake Kan
+ iere":geo:-42.84,171.152
+DESCRIPTION:Bush-fringed lake near Hokitika — water race walkway.\n\nArri
+ ve Fri 12 Feb · depart Sun 14 Feb\nOn the menu: 🥾 Day walks · ⛺ Ove
+ rnight tramp options\nSite ID: 6727\n\nMap & full itinerary: https://zombi
+ ez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub07@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270214
+DTEND;VALUE=DATE:20270216
+SUMMARY:🚐 Safari #7 · Arthur's Pass — 2 nights
+LOCATION:Arthur's Pass\, New Zealand
+GEO:-42.942;171.564
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Arthur's
+  Pass":geo:-42.942,171.564
+DESCRIPTION:Alpine village — Devils Punchbowl Falls\, valley tramps and c
+ heeky kea.\n\nArrive Sun 14 Feb · depart Tue 16 Feb\nOn the menu: 🥾 Da
+ y walks · ⛺ Overnight tramp options\nSite ID: 7682\n\nMap & full itiner
+ ary: https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub08@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270216
+DTEND;VALUE=DATE:20270220
+SUMMARY:🚐 Safari #8 · Hawdon Valley — 4 nights
+LOCATION:Hawdon Valley\, New Zealand
+GEO:-42.988;171.748
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Hawdon V
+ alley":geo:-42.988,171.748
+DESCRIPTION:Grassy flats beside a braided river off Mt White Road — gatew
+ ay to Hawdon Hut and the Edwards.\n\nArrive Tue 16 Feb · depart Sat 20 Fe
+ b\nOn the menu: 🥾 Day walks · ⛺ Overnight tramp options\nSite ID: 76
+ 76\n\nMap & full itinerary: https://zombiez4git.github.io/van-trampers-saf
+ ari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub09@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270220
+DTEND;VALUE=DATE:20270221
+SUMMARY:🚐 Safari #9 · Cass — 1 night
+LOCATION:Cass\, New Zealand
+GEO:-43.031;171.758
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Cass":ge
+ o:-43.031,171.758
+DESCRIPTION:Tiny railway halt immortalised by Rita Angus — high-country g
+ ravel roads made for a pedal.\n\nArrive Sat 20 Feb · depart Sun 21 Feb\nO
+ n the menu: 🥾 Day walks · 🚲 Bring the bikes\nSite ID: 7680\n\nMap &
+  full itinerary: https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub10@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270221
+DTEND;VALUE=DATE:20270228
+SUMMARY:🚐 Safari #10 · Oxford — 7 nights
+LOCATION:Oxford\, New Zealand
+GEO:-43.297;172.193
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Oxford":
+ geo:-43.297,172.193
+DESCRIPTION:A whole week in the Canterbury foothills — forest walks\, a S
+ unday market and a pie worth the drive.\n\nArrive Sun 21 Feb · depart Sun
+  28 Feb\nOn the menu: 🥾 Day walks · ⛺ Overnight tramp options · 
+ 🥧 Famous pie stop\nSite ID: 7488 / 7480\n\nMap & full itinerary: https:
+ //zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub11@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270228
+DTEND;VALUE=DATE:20270303
+SUMMARY:🚐 Safari #11 · Lake Coleridge — 3 nights
+LOCATION:Lake Coleridge\, New Zealand
+GEO:-43.363;171.531
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Lake Col
+ eridge":geo:-43.363,171.531
+DESCRIPTION:High-country hydro village — power station running since 1914
+ .\n\nArrive Sun 28 Feb · depart Wed 3 Mar\nOn the menu: 🥾 Day walks ·
+  🏛️ Heritage & history\nSite ID: 7695 / 7694\n\nMap & full itinerary:
+  https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub12@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:🚐 Safari #12 · Methven — 1 night
+LOCATION:Methven\, New Zealand
+GEO:-43.626;171.648
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Methven"
+ :geo:-43.626,171.648
+DESCRIPTION:Quick overnighter beneath Mt Hutt.\n\nArrive Wed 3 Mar · depar
+ t Thu 4 Mar\nOn the menu: 🥾 Day walks\nSite ID: 7730\n\nMap & full itin
+ erary: https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub13@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270304
+DTEND;VALUE=DATE:20270307
+SUMMARY:🚐 Safari #13 · Mt Somers — 3 nights
+LOCATION:Mt Somers\, New Zealand
+GEO:-43.706;171.392
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Mt Somer
+ s":geo:-43.706,171.392
+DESCRIPTION:Three nights for Woolshed Creek\, canyon country and the subalp
+ ine Mt Somers track.\n\nArrive Thu 4 Mar · depart Sun 7 Mar\nOn the menu:
+  🥾 Day walks · ⛺ Overnight tramp options\nSite ID: 7828 / 7813 / 781
+ 0 / 7807\n\nMap & full itinerary: https://zombiez4git.github.io/van-trampe
+ rs-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub14@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270307
+DTEND;VALUE=DATE:20270310
+SUMMARY:🚐 Safari #14 · Hakatere — 3 nights
+LOCATION:Hakatere\, New Zealand
+GEO:-43.683;171.103
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Hakatere
+ ":geo:-43.683,171.103
+DESCRIPTION:Ashburton Lakes high country — 1860s station buildings\, tuss
+ ock basins and Mt Sunday (aka Edoras).\n\nArrive Sun 7 Mar · depart Wed 1
+ 0 Mar\nOn the menu: 🥾 Day walks\nSite ID: 8014\n\nMap & full itinerary:
+  https://zombiez4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:safari2027-hub15@zombiez4git.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270310
+DTEND;VALUE=DATE:20270313
+SUMMARY:🚐 Safari #15 · Geraldine (Finish) — 3 nights
+LOCATION:Geraldine\, New Zealand
+GEO:-44.097;171.243
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-APPLE-RADIUS=1000;X-TITLE="Geraldin
+ e":geo:-44.097,171.243
+DESCRIPTION:Berries\, bakeries and a well-earned finish-line toast.\n\nArri
+ ve Wed 10 Mar · depart Sat 13 Mar\nOn the menu: 🥾 Day walks · 🏛️
+  Heritage & history\nSite ID: 7880\n\nMap & full itinerary: https://zombie
+ z4git.github.io/van-trampers-safari/
+URL:https://zombiez4git.github.io/van-trampers-safari/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

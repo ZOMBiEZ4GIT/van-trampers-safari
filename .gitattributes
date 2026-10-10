@@ -1,0 +1,2 @@
+# Calendar feeds must keep CRLF line endings (RFC 5545) — never let autocrlf touch them
+*.ics -text

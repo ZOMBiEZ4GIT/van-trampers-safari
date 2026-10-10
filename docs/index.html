@@ -210,6 +210,81 @@
   .pdflink{color:var(--navy); font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase;
     text-decoration:none; border:1.5px solid var(--navy); border-radius:8px; padding:3px 12px; display:inline-block; margin-top:6px; background:#fff6;}
   .pdflink:hover{background:var(--navy); color:#fdf6e6;}
+  button.pdflink{cursor:pointer; margin-left:6px;}
+  /* ---------- add to calendar ---------- */
+  .aside-head{display:flex; align-items:center; gap:8px; background:var(--navy); padding-right:10px;}
+  .aside-head h2{flex:1;}
+  .calbtn{
+    font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:1px; text-transform:uppercase; font-size:.74rem;
+    color:var(--navy); background:#f6e7c1; border:1.5px solid var(--ochre); border-radius:8px;
+    padding:4px 10px; cursor:pointer; white-space:nowrap; box-shadow:0 2px 0 #12253d;
+  }
+  .calbtn:hover{background:#fff3d6;}
+  .calbtn .cal-emo{display:inline-block; animation:calwiggle .9s ease-in-out 2.4s 2;}
+  @keyframes calwiggle{0%,100%{transform:rotate(0)} 20%{transform:rotate(-12deg)} 40%{transform:rotate(9deg)} 60%{transform:rotate(-6deg)} 80%{transform:rotate(3deg)}}
+  .calbtn:focus-visible, .cal-opt:focus-visible, .cal-x:focus-visible{outline:3px solid var(--ochre); outline-offset:2px;}
+  .caldlg{
+    margin:auto; padding:0; width:min(560px, calc(100vw - 24px)); max-height:calc(100vh - 24px); max-height:calc(100svh - 24px);
+    background:var(--cream); color:var(--ink); border:3px solid var(--navy); border-radius:12px; overflow:auto;
+    box-shadow:0 4px 0 var(--navy), 0 24px 60px rgba(0,0,0,.45);
+  }
+  .caldlg[open]{animation:calpop .38s cubic-bezier(.2,1.5,.4,1);}
+  @keyframes calpop{from{transform:scale(.86) rotate(-2.5deg); opacity:0} to{transform:none; opacity:1}}
+  .caldlg::backdrop{background:rgba(30,58,95,.55); backdrop-filter:blur(2px);}
+  .cal-head{display:flex; align-items:flex-start; gap:10px; background:var(--navy); color:var(--cream); padding:12px 12px 12px 18px;}
+  .cal-head > div{flex:1;}
+  .cal-kick{font-family:'Special Elite',cursive; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#e9c98a;}
+  .cal-head h3{font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:22px; letter-spacing:1px; line-height:1.15;}
+  .cal-x{background:none; border:0; color:var(--cream); font-size:28px; line-height:1; width:36px; height:36px; cursor:pointer; border-radius:8px;}
+  .cal-x:hover{background:rgba(255,255,255,.12);}
+  .cal-months{display:grid; grid-template-columns:1fr 1fr; gap:18px; padding:14px 18px 4px;}
+  .cal-mname{font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--red); text-align:center; margin-bottom:4px;}
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:3px;}
+  .cal-wd{font-family:'Oswald',sans-serif; font-size:10px; color:#8a7452; text-align:center;}
+  .cal-d{
+    position:relative; aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:5px;
+    font-family:'Special Elite',cursive; font-size:11px; color:#a89a7c;
+  }
+  .cal-night{color:var(--ink); cursor:pointer; transition:transform .12s, box-shadow .12s;}
+  .cal-night.c0{background:#dbe5ef;} .cal-night.c1{background:#f2d9d2;}
+  .cal-night.c2{background:#d9e8dc;} .cal-night.c3{background:#f3e3bd;}
+  .cal-night.hl{box-shadow:inset 0 0 0 2px var(--red); transform:scale(1.08); z-index:1;}
+  .cal-night i{
+    position:absolute; top:-5px; left:-5px; min-width:15px; height:15px; padding:0 3px; border-radius:8px;
+    background:var(--red); color:#fff; font:600 9px/15px 'Oswald',sans-serif; font-style:normal; text-align:center;
+    box-shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+  .cal-home{font-size:15px;}
+  .cal-cap{text-align:center; font-family:'Special Elite',cursive; font-size:13px; color:var(--green); min-height:1.5em; padding:6px 16px 0;}
+  .cal-cap b{color:var(--red); font-weight:400;}
+  .cal-perf{position:relative; margin:12px 0 4px; border-top:2px dashed var(--ochre);}
+  .cal-perf::before, .cal-perf::after{
+    content:""; position:absolute; top:-10px; width:18px; height:18px; border-radius:50%;
+    background:var(--parch); border:3px solid var(--navy);
+  }
+  .cal-perf::before{left:-12px;} .cal-perf::after{right:-12px;}
+  .cal-opts{display:grid; gap:9px; padding:12px 18px 4px;}
+  .cal-opt{
+    display:flex; align-items:center; gap:12px; padding:9px 14px; text-decoration:none; color:var(--ink);
+    background:#fffaf0; border:2px solid var(--navy); border-radius:10px; box-shadow:0 3px 0 var(--navy);
+    transition:transform .1s, box-shadow .1s, background .15s;
+  }
+  .cal-opt:hover{background:#f3e9cf; transform:translateY(-1px); box-shadow:0 4px 0 var(--navy);}
+  .cal-opt:active{transform:translateY(2px); box-shadow:0 1px 0 var(--navy);}
+  .cal-ic{font-size:24px; width:32px; text-align:center; flex:0 0 auto;}
+  .cal-t{flex:1; min-width:0;}
+  .cal-t b{display:block; font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.5px; font-size:15px; color:var(--navy);}
+  .cal-t small{display:block; font-family:'Special Elite',cursive; font-size:12px; color:#6e5a3c;}
+  .cal-go{font-family:'Oswald',sans-serif; font-size:24px; color:var(--red); flex:0 0 auto;}
+  .cal-foot{text-align:center; font-family:'Special Elite',cursive; font-size:12px; color:var(--green); padding:10px 18px 16px; line-height:1.45;}
+  @media (prefers-reduced-motion: reduce){
+    .calbtn .cal-emo, .caldlg[open]{animation:none;}
+    .cal-night, .cal-opt{transition:none;}
+  }
+  @media (max-width: 520px){
+    .cal-months{grid-template-columns:1fr; gap:10px; padding:12px 22px 0;}
+    .cal-head h3{font-size:19px;}
+  }
   /* ---------- responsive ---------- */
   @media (max-width: 900px){
     .main{grid-template-columns:1fr;}
@@ -266,7 +341,10 @@
         <div class="map-note">Route is approximate — stops &amp; order may change with weather, whim and Happy Hour votes.</div>
       </div>
       <aside>
-        <h2>The Itinerary</h2>
+        <div class="aside-head">
+          <h2>The Itinerary</h2>
+          <button class="calbtn" id="calBtn" type="button" aria-haspopup="dialog"><span class="cal-emo">📅</span> Add to calendar</button>
+        </div>
         <div class="itin" id="itin" aria-label="Itinerary — one entry per hub"></div>
       </aside>
     </div>
@@ -303,9 +381,41 @@
       <span class="big">Good company · shared adventure · freedom to roam</span><br>
       It's your trip! &nbsp;🥾🚐⛰️<br>
       <a class="pdflink" href="South_Island_Safari_Fridge_Map.pdf" download>⬇&nbsp; Print the fridge map (PDF)</a>
+      <button class="pdflink" id="calBtn2" type="button" aria-haspopup="dialog">📅&nbsp; Add to my calendar</button>
     </footer>
   </div>
 </div>
+
+<dialog class="caldlg" id="calDlg" aria-labelledby="calTitle">
+  <div class="cal-head">
+    <div>
+      <div class="cal-kick">Pack it in your calendar</div>
+      <h3 id="calTitle">All 15 hubs, one tap</h3>
+    </div>
+    <button class="cal-x" id="calClose" type="button" aria-label="Close">×</button>
+  </div>
+  <div class="cal-months" id="calMonths" aria-hidden="true"></div>
+  <div class="cal-cap" id="calCap">Tap a day to see where we'll be</div>
+  <div class="cal-perf" aria-hidden="true"></div>
+  <div class="cal-opts">
+    <a class="cal-opt" id="calApple" href="#">
+      <span class="cal-ic" aria-hidden="true">🍏</span>
+      <span class="cal-t"><b>iPhone · iPad · Mac</b><small>Subscribe once · it keeps itself up to date</small></span>
+      <span class="cal-go" aria-hidden="true">›</span>
+    </a>
+    <a class="cal-opt" id="calGoogle" href="#" target="_blank" rel="noopener">
+      <span class="cal-ic" aria-hidden="true">🤖</span>
+      <span class="cal-t"><b>Google Calendar · Android</b><small>Opens Google Calendar · tap “Add”</small></span>
+      <span class="cal-go" aria-hidden="true">›</span>
+    </a>
+    <a class="cal-opt" id="calFile" href="South_Island_Safari_2027.ics" download>
+      <span class="cal-ic" aria-hidden="true">⬇️</span>
+      <span class="cal-t"><b>Download the file</b><small>Outlook, Samsung &amp; the rest</small></span>
+      <span class="cal-go" aria-hidden="true">›</span>
+    </a>
+  </div>
+  <p class="cal-foot">15 all-day events with dates, notes &amp; Site IDs.<br>If the dates shuffle, subscribed calendars catch up on their own. 🚐</p>
+</dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -640,6 +750,64 @@ speedGrp.querySelectorAll('.sbtn').forEach(b=>{
   };
 });
 resetBtn.onclick = tourReset;
+
+// ---------- "Add to my calendar" ----------
+// The feed is South_Island_Safari_2027.ics (gen_ics.py, built from the same stops.js).
+// Subscribing (webcal / Google add-by-URL) means date changes reach everyone's calendar on their own.
+(function(){
+  const FEED = 'zombiez4git.github.io/van-trampers-safari/South_Island_Safari_2027.ics';
+  const dlg = document.getElementById('calDlg'), months = document.getElementById('calMonths'),
+        cap = document.getElementById('calCap'), CAP_DEFAULT = cap.textContent;
+  document.getElementById('calApple').href = 'webcal://' + FEED;
+  document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/r?cid=' + encodeURIComponent('webcal://' + FEED);
+
+  // mini Feb/Mar calendar: each night shaded by hub, hub number on its first night, 🏁 on home day
+  const MON = {Feb:1, Mar:2};
+  const utc = s => { const [, d, m] = s.split(' '); return Date.UTC(2027, MON[m], +d); };   // "Mon 1 Feb"
+  const iso = t => new Date(t).toISOString().slice(0, 10);
+  const nice = t => new Date(t).toLocaleDateString('en-NZ', {weekday:'short', day:'numeric', month:'short', timeZone:'UTC'});
+  const hubOn = {};
+  STOPS.forEach(s => { for(let t = utc(s.arr); t < utc(s.dep); t += 864e5) hubOn[iso(t)] = s; });
+  const home = iso(utc(STOPS[STOPS.length-1].dep));
+  const month = (m, lastDay, label) => {
+    let h = '<div class="cal-month"><div class="cal-mname">' + label + '</div><div class="cal-grid">' +
+      ['M','T','W','T','F','S','S'].map(d => '<span class="cal-wd">' + d + '</span>').join('') +
+      '<span></span>'.repeat((new Date(Date.UTC(2027, m, 1)).getUTCDay() + 6) % 7);
+    for(let d = 1; d <= lastDay; d++){
+      const t = Date.UTC(2027, m, d), k = iso(t), s = hubOn[k];
+      if(s) h += '<span class="cal-d cal-night c' + (s.n % 4) + '" data-date="' + k + '" data-hub="' + s.n +
+                 '" title="' + nice(t) + ' · ' + s.name + '">' + d + (k === iso(utc(s.arr)) ? '<i>' + s.n + '</i>' : '') + '</span>';
+      else if(k === home) h += '<span class="cal-d cal-home" data-date="' + k + '" title="' + nice(t) + ' · home time">🏁</span>';
+      else h += '<span class="cal-d" data-date="' + k + '">' + d + '</span>';
+    }
+    return h + '</div></div>';
+  };
+  months.innerHTML = month(1, 28, 'February 2027') + month(2, 14, 'March 2027');
+
+  // point at a night -> light up that whole stay and name it
+  const show = n => {
+    months.querySelectorAll('.cal-night').forEach(c => c.classList.toggle('hl', c.dataset.hub === n));
+    const s = STOPS.find(x => String(x.n) === n);
+    if(s) cap.innerHTML = '<b>' + s.dates + '</b> · ' + s.n + '. ' + s.name + ' · ' + s.nights + ' night' + (s.nights > 1 ? 's' : '');
+    else cap.textContent = CAP_DEFAULT;
+  };
+  const pick = e => { const c = e.target.closest('.cal-night'); if(c) show(c.dataset.hub); };
+  months.addEventListener('pointerover', pick);
+  months.addEventListener('click', pick);
+  months.addEventListener('pointerleave', e => { if(e.pointerType === 'mouse') show(null); });
+
+  const open = () => {
+    if(tour && tour.playing) tourSuspend();   // don't let the van drive off while they're busy here
+    show(null);
+    if(typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+  };
+  const close = () => { if(typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open'); };
+  document.getElementById('calBtn').onclick = open;
+  document.getElementById('calBtn2').onclick = open;
+  document.getElementById('calClose').onclick = close;
+  dlg.addEventListener('click', e => { if(e.target === dlg) close(); });        // backdrop
+  dlg.addEventListener('keydown', e => { if(e.key === 'Escape' && !dlg.showModal) close(); });   // old-browser fallback
+})();
 
 // auto-play shortly after load — but never for reduced-motion users,
 // and any interaction beforehand cancels it (they're already exploring)

@@ -52,6 +52,15 @@ Second round (11 Oct 2026, done): ⛺ removed from Reefton; the fridge map's
   real `<button>`s (keyboard + screen-reader friendly), focus-visible styles
   throughout. Vintage safari theme: parchment #f2e9d4, navy #1e3a5f,
   red #a93a2c, green #3e6b4f; fonts Oswald / Special Elite / Nunito Sans.
+- **📅 Add to my calendar** (built 11 Oct 2026): button in the itinerary header +
+  footer opens a ticket-style dialog with a mini Feb/Mar 2027 calendar (each night
+  shaded by hub; hover/tap a night to light up that stay) and three links:
+  `webcal://` subscribe (Apple), Google add-by-URL (`calendar/r?cid=`), and a plain
+  `.ics` download. The feed is `South_Island_Safari_2027.ics` (`gen_ics.py`, run by
+  build.py): 15 all-day events, stable per-hub UIDs, so a stops.js change + push
+  updates subscribers' calendars (refresh ~daily). `.gitattributes` keeps its CRLF.
+  ⚠️ Not yet tested on a real iPhone/Android: Google's mobile add-by-URL flow is the
+  fussy one.
 - `South_Island_Safari_Fridge_Map.pdf` — A4 landscape print companion, same
   theme: vector SVG map with label cards + summary table + legend + notes.
 - `og-image.jpg` — 1200×630 link-preview image (`python3 gen_og.py && node og_shot.js`
@@ -62,11 +71,12 @@ Second round (11 Oct 2026, done): ⛺ removed from Reefton; the fridge map's
   PNG previews, and print-ready `back_artwork_*.svg/.pdf` (300 × 400 mm, 2 spot colours).
   `python3 gen_tshirt.py && node tshirt_pdf.js`.
 - `docs/` — the folder GitHub Pages serves (index.html, PDF, og-image.jpg,
-  .nojekyll). Copy fresh builds in; don't edit in place.
+  South_Island_Safari_2027.ics, .nojekyll). Copy fresh builds in; don't edit in place.
 
 ## Build pipeline
 
-- `python3 build.py` → assembles `South_Island_Safari_Map.html` (+ `test_local.html`)
+- `python3 build.py` → writes `South_Island_Safari_2027.ics` (via `gen_ics.py`) and
+  assembles `South_Island_Safari_Map.html` (+ `test_local.html`)
   from `site_template.html` + `stops.js` + `logo_b64.txt` + `nz_polys_min.json`
   + `favicon_b64.txt` + `appletouch_b64.txt`. Placeholders in template:
   `__STOPS__`, `__LOGO__`, `__NZ__`, `__FAVICON__`, `__APPLETOUCH__`.
@@ -92,7 +102,9 @@ Second round (11 Oct 2026, done): ⛺ removed from Reefton; the fridge map's
   preinstalled in Cowork; in Claude Code run `npx playwright install chromium`
   if needed). `node shot.js` (desktop+mobile screenshots), `node tour_test.js`
   / `tour_test2.js` (plays the animated tour end-to-end, checks ticker/errors),
-  `node tour_test3.js` (mobile viewport: reset mid-tour, replay, countdown).
+  `node tour_test3.js` (mobile viewport: reset mid-tour, replay, countdown),
+  `node ics_test.js` (calendar feed vs stops.js + RFC 5545 plumbing),
+  `node cal_ui_test.js` (calendar dialog, links, mini calendar; desktop + mobile).
   All scripts launch Chromium through `pw_launch.js`, which falls back to a
   preinstalled browser (`CHROMIUM_PATH` or `/opt/pw-browsers/chromium`) when
   Playwright's own download is blocked. Screenshot and tour scripts set
