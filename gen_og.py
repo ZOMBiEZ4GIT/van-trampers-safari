@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build og.html — the 1200×630 link-preview card (WhatsApp/Facebook unfurls).
 `node og_shot.js` screenshots it to og-image.jpg. Vector map, so no tiles/network needed."""
-import os
+import os, pathlib
 from safari_data import STOPS, TRIP, HERE, validate
 from safari_svg import Proj, coast_polygons, route_points, pins_svg
 
@@ -15,17 +15,17 @@ svg = f'''<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" width="{
   {pins_svg(P, pin_w=19, pin_h=19, font=10)}
 </svg>'''
 logo = open(os.path.join(HERE, 'logo_b64.txt')).read().strip()
-FD = os.path.join(HERE, 'node_modules', '@fontsource')
+FD = pathlib.Path(HERE, 'node_modules', '@fontsource').as_uri()  # file:/// URL on Windows too
 def row(s):
     tag = f' <span class="tag">{s["tag"].title()}</span>' if s.get('tag') else ''
     return f'<div class="r"><span class="b{" g" if s.get("tag") else ""}">{s["n"]}</span><span class="nm">{s["name"]}{tag}</span><span class="dt">{s["dates"]}</span></div>'
 rows = ''.join(row(s) for s in STOPS)
 html = f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-@font-face {{ font-family:'Oswald'; font-weight:600; src:url('file://{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Oswald'; font-weight:700; src:url('file://{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Special Elite'; src:url('file://{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:600; src:url('{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:700; src:url('{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Special Elite'; src:url('{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
 :root {{ --parch:#f2e9d4; --ink:#3d3020; --navy:#1e3a5f; --red:#a93a2c; --green:#3e6b4f; --ochre:#b07c2a; --cream:#faf5e8; }}
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{ width:1200px; height:630px; overflow:hidden; font-family:'Nunito Sans',sans-serif; color:var(--ink);

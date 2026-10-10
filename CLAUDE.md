@@ -7,15 +7,13 @@ December 2026**.
 
 ## Source of truth
 
-`source/VT_South_Island_Safari_2027_Summary_VT_VERSION.pdf` — Aunty C's
-post-reccie summary (received Oct 2026; text in `source/summary_VT_VERSION_extracted.txt`).
-**1 Feb – 13 Mar 2027, 15 hubs, 40 nights.** Replaces the Word doc Draft 5.07.26
+`source/VT_South_Island_Safari_2027_Summary_VT_VERSION.docx` — Aunty C's latest
+summary (received 11 Oct 2026). It updates the post-reccie PDF of the same name
+(text in `source/summary_VT_VERSION_extracted.txt`) in two ways: the overnight tramp
+is dropped from Reefton, and Cass is confirmed as **1 night** (the PDF wrongly said 2).
+**1 Feb – 13 Mar 2027, 15 hubs, 40 nights.** Both replace the Word doc Draft 5.07.26
 (which had Arthur's Pass ×3 and Peel Forest; now Arthur's Pass / Hawdon Valley / Cass
 and Hakatere, trip one day shorter). The 4-digit numbers are her **Site IDs**.
-
-⚠️ One inconsistency in her PDF: Cass (hub 9) says "2 nights" but Arr Feb 20 /
-Dep Feb 21 — and her title says the trip ends 13 Mar, which only works with 1 night
-at Cass. We show **1 night** (date chain wins; 40 nights total). Confirm with her.
 
 Date format decision (agreed with Aunty C's suggestion): show the **nights
 occupied** as a range, e.g. Arr Feb 1 / Dep Feb 4 → "Feb 1–3 · 3 nights".
@@ -27,6 +25,9 @@ wording; no Day Walks icon (every hub has day walks — tramp + heritage icons s
 no icons on the fridge-map label cards except 🚲 on Westport & Cass and 🥧 on
 Reefton & Oxford; full "How We Roll" text with the closing line visible at the
 bottom; a slower tour option (🐢 ½×, and 1× is slower than before).
+Second round (11 Oct 2026, done): ⛺ removed from Reefton; the fridge map's
+"Southern Alps" label (it ran the wrong way, through Otago) replaced with her line
+"More great cycling and tramping down here…" in the empty south of the island.
 
 ## Deliverables (built, tested)
 
@@ -76,6 +77,10 @@ bottom; a slower tour option (🐢 ½×, and 1× is slower than before).
   nudged pin on the whole-island map; cards carry the hub number. PDF embeds
   fonts via @fontsource woff2 (needs `npm install`); emoji need a colour emoji
   font on the machine (Noto Color Emoji works).
+- On Roland's Windows machine: use `python` (no `python3`) and set `PYTHONUTF8=1`,
+  or the generators die writing emoji in cp1252. Check a PDF rebuild actually
+  embedded Oswald / Special Elite / Nunito Sans — if the fonts fail to load,
+  Chromium silently falls back to Arial and Comic Sans.
 - Itinerary data lives in `stops.js` **only**. `safari_data.py` parses it for the
   Python generators and validates the date chain; `safari_svg.py` is the shared
   vector-map drawing (projection, coastline, route, pins) used by the fridge
@@ -100,8 +105,7 @@ bottom; a slower tour option (🐢 ½×, and 1× is slower than before).
 **Live** since Aug 2026 at https://zombiez4git.github.io/van-trampers-safari/ —
 GitHub Pages, public repo `ZOMBiEZ4GIT/van-trampers-safari`, deploy from
 branch `main`, folder `/docs`. To ship changes: rebuild, copy outputs into
-`docs/`, commit, push. ⚠️ Confirm the Cass nights question with Aunty C before
-she sends the link to the group.
+`docs/`, commit, push.
 
 ## Ideas / possible next steps (discussed or floated)
 

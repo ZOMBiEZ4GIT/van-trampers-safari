@@ -310,14 +310,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 // Van Trampers South Island Safari — 1 Feb to 13 Mar 2027 (15 hubs, 40 nights)
-// Source of truth: Aunty C's "VT South Island Safari 2027 Summary VT VERSION.pdf" (post-reccie, Sep/Oct 2026)
+// Source of truth: Aunty C's "VT South Island Safari 2027 Summary VT VERSION.docx" (Oct 2026 update of
+// the post-reccie PDF: overnight tramp dropped from Reefton, Cass confirmed as 1 night)
 // dates = nights occupied (e.g. Arr Feb 1 / Dep Feb 4 -> "Feb 1–3", 3 nights)
 // acts: tramp = overnight/multi-day tramp options, heritage = heritage & history
 //       (day walks are on the menu at every hub, so they're not flagged individually)
 // fun:  bike = a ride worth packing the bikes for, pie = a famous bakery pie
 // ids:  Aunty C's Site IDs from the shared-drive walk collection
 const STOPS = [
-  {n:1,  name:"Reefton", tag:"START", lat:-42.117, lng:171.867, nights:3, dates:"Feb 1–3",  arr:"Mon 1 Feb", dep:"Thu 4 Feb", acts:["tramp","heritage"], fun:["pie"], ids:"6531", blurb:"Gold-rush town — first place in NZ lit by electric light, and home to a legendary bakery pie."},
+  {n:1,  name:"Reefton", tag:"START", lat:-42.117, lng:171.867, nights:3, dates:"Feb 1–3",  arr:"Mon 1 Feb", dep:"Thu 4 Feb", acts:["heritage"], fun:["pie"], ids:"6531", blurb:"Gold-rush town — first place in NZ lit by electric light, and home to a legendary bakery pie."},
   {n:2,  name:"Denniston", lat:-41.738, lng:171.800, nights:2, dates:"Feb 4–5", arr:"Thu 4 Feb", dep:"Sat 6 Feb", acts:["heritage"], fun:[], ids:"6455", blurb:"Historic coal plateau and the famous Denniston Incline."},
   {n:3,  name:"Westport", lat:-41.754, lng:171.601, nights:2, dates:"Feb 6–7", arr:"Sat 6 Feb", dep:"Mon 8 Feb", acts:[], fun:["bike"], ids:"6479", blurb:"Buller River port town — Cape Foulwind seals, and the Kawatiri Coastal Trail for the bikes.", note:"We roll out on Mon 8 Feb — Waitangi Day (observed)."},
   {n:4,  name:"Fox River", lat:-42.018, lng:171.373, nights:2, dates:"Feb 8–9", arr:"Mon 8 Feb", dep:"Wed 10 Feb", acts:["tramp"], fun:[], ids:"6507", blurb:"Paparoa limestone country — river gorges, caves and the Inland Pack Track."},

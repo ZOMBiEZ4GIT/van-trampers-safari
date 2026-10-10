@@ -6,13 +6,13 @@ Writes into tshirt/:
   back_artwork_*.html, mockup.html                        — intermediates; `node tshirt_pdf.js` turns them into
   South_Island_Safari_Tshirt_Mockup.pdf (+ PNG previews) and back_artwork_*.pdf
 """
-import os, re
+import os, re, pathlib
 from safari_data import STOPS, TRIP, HERE, validate
 from safari_svg import Proj, coast_polygons, route_points, pins_svg
 
 validate()
 OUT = os.path.join(HERE, 'tshirt'); os.makedirs(OUT, exist_ok=True)
-FD = os.path.join(HERE, 'node_modules', '@fontsource')
+FD = pathlib.Path(HERE, 'node_modules', '@fontsource').as_uri()  # file:/// URL on Windows too
 LOGO = open(os.path.join(HERE, 'logo_b64.txt')).read().strip()
 
 # Brand palette (hex — the printer matches to their nearest Pantone / plastisol stock)
@@ -24,11 +24,11 @@ COLOURWAYS = {
 }
 
 FONT_CSS = f'''
-@font-face {{ font-family:'Oswald'; font-weight:600; src:url('file://{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Oswald'; font-weight:700; src:url('file://{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Special Elite'; src:url('file://{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:600; src:url('{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:700; src:url('{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Special Elite'; src:url('{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
 '''
 
 # ---------- the back graphic: 300 x 400 mm, 1 user unit = 1 mm ----------

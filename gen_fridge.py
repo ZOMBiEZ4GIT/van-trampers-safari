@@ -2,7 +2,7 @@
 """Generate the A4 landscape fridge-map HTML (vector SVG map + summary table).
 Then `node pdf.js` prints it to South_Island_Safari_Fridge_Map.pdf.
 Data comes from stops.js via safari_data.py; the map drawing from safari_svg.py."""
-import os
+import os, pathlib
 from safari_data import STOPS, TRIP, HERE, validate
 from safari_svg import Proj, coast_polygons, route_points, pins_svg, pin_positions
 
@@ -54,7 +54,10 @@ svg = f'''<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">
   {coast_polygons(P)}
   <text x="60" y="95" class="sea">TASMAN&#160;&#160;SEA</text>
   <text x="455" y="520" class="sea">PACIFIC OCEAN</text>
-  <text x="185" y="470" class="alps" transform="rotate(40 185 470)">S O U T H E R N&#160;&#160;&#160;A L P S</text>
+  <g transform="rotate(-6 225 556)">
+    <text x="225" y="548" text-anchor="middle" class="south">More great cycling</text>
+    <text x="225" y="568" text-anchor="middle" class="south">and tramping down here…</text>
+  </g>
   <polyline points="{route_points(P)}" class="route-case"/>
   <polyline points="{route_points(P)}" class="route"/>
   {''.join(leaders)}{''.join(cards)}
@@ -74,13 +77,13 @@ for s in STOPS:
                 f'<td class="c3">{s["dates"]}</td><td class="c4">{s["nights"]}</td>'
                 f'<td class="c5">{icons(s)}</td></tr>')
 
-FD = os.path.join(HERE, 'node_modules', '@fontsource')
+FD = pathlib.Path(HERE, 'node_modules', '@fontsource').as_uri()  # file:/// URL on Windows too
 html = f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-@font-face {{ font-family:'Oswald'; font-weight:600; src:url('file://{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Oswald'; font-weight:700; src:url('file://{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Special Elite'; font-weight:400; src:url('file://{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
-@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('file://{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:600; src:url('{FD}/oswald/files/oswald-latin-600-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Oswald'; font-weight:700; src:url('{FD}/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Special Elite'; font-weight:400; src:url('{FD}/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:400; src:url('{FD}/nunito-sans/files/nunito-sans-latin-400-normal.woff2') format('woff2'); }}
+@font-face {{ font-family:'Nunito Sans'; font-weight:700; src:url('{FD}/nunito-sans/files/nunito-sans-latin-700-normal.woff2') format('woff2'); }}
 @page {{ size: A4 landscape; margin: 0; }}
 :root {{ --parch:#f2e9d4; --ink:#3d3020; --navy:#1e3a5f; --red:#a93a2c; --green:#3e6b4f; --ochre:#b07c2a; --cream:#faf5e8; }}
 * {{ margin:0; padding:0; box-sizing:border-box; }}
@@ -95,7 +98,7 @@ body {{ width:297mm; height:210mm; font-family:'Nunito Sans','Segoe UI',sans-ser
 .right {{ flex:1; min-width:0; height:100%; display:flex; flex-direction:column; gap:3mm; }}
 .land {{ fill:#ece1c2; stroke:#8a7452; stroke-width:1; }}
 .sea {{ font-family:'Nunito Sans',sans-serif; font-style:italic; letter-spacing:4px; font-size:13px; fill:#7d9a94; }}
-.alps {{ font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; fill:#a09274; }}
+.south {{ font-family:'Special Elite',cursive; font-size:14px; fill:#8a7452; }}
 .route-case {{ fill:none; stroke:#fdf6e6; stroke-width:5.5; stroke-linejoin:round; }}
 .route {{ fill:none; stroke:var(--red); stroke-width:2.6; stroke-dasharray:6 5; stroke-linejoin:round; }}
 .leader {{ stroke:#8a7452; stroke-width:1; stroke-dasharray:2 2; }}
